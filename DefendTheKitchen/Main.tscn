@@ -6,9 +6,9 @@
 [ext_resource path="res://Main.gd" type="Script" id=4]
 
 [sub_resource type="NavigationPolygon" id=1]
-vertices = PoolVector2Array( 1024, 3, 1024, 597, 397, 158, 380, 107, 360, 205, -1, 603, 294, 273, 235, 293, 190, 278, 3, 3, 178, 233, 241, 167, 312, 110 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 2, 1 ), PoolIntArray( 4, 1, 5, 6 ), PoolIntArray( 7, 6, 5 ), PoolIntArray( 8, 7, 5 ), PoolIntArray( 8, 5, 9, 10 ), PoolIntArray( 11, 10, 9 ), PoolIntArray( 9, 0, 3, 12 ), PoolIntArray( 9, 12, 11 ) ]
-outlines = [ PoolVector2Array( 3, 3, -1, 603, 1024, 597, 1024, 3 ), PoolVector2Array( 241, 167, 178, 233, 190, 278, 235, 293, 294, 273, 360, 205, 397, 158, 380, 107, 312, 110 ) ]
+vertices = PoolVector2Array( 1024, 3, 1024, 597, 1020, 516, 1018, 101, 950, 100, 950, 511, 831, 425, 828, 341, 826, 265, 823, 173, 821, 92, 828, 508, 3, 3, 735, 90, -1, 603, 733, 175, 739, 264, 739, 341, 747, 508, 744, 425 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7, 8 ), PoolIntArray( 4, 8, 9, 10 ), PoolIntArray( 11, 6, 5 ), PoolIntArray( 12, 0, 3, 4, 10 ), PoolIntArray( 12, 10, 13 ), PoolIntArray( 14, 12, 13, 15 ), PoolIntArray( 9, 8, 16, 15 ), PoolIntArray( 14, 15, 16, 17 ), PoolIntArray( 11, 5, 2, 1, 14, 18 ), PoolIntArray( 18, 14, 17, 19 ), PoolIntArray( 19, 17, 7, 6 ) ]
+outlines = [ PoolVector2Array( 3, 3, -1, 603, 1024, 597, 1024, 3 ), PoolVector2Array( 735, 90, 821, 92, 823, 173, 733, 175 ), PoolVector2Array( 739, 264, 826, 265, 828, 341, 739, 341 ), PoolVector2Array( 744, 425, 831, 425, 828, 508, 747, 508 ), PoolVector2Array( 950, 100, 950, 511, 1020, 516, 1018, 101 ) ]
 
 [node name="Main" type="Node"]
 script = ExtResource( 4 )
@@ -22,18 +22,47 @@ width = 5.0
 default_color = Color( 0.886275, 0.886275, 0.886275, 1 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 919, 298 )
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 690, 96 )
+position = Vector2( 161, 292 )
+playerNodePath = NodePath("../Player")
+
+[node name="Enemy2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 405, 110 )
+playerNodePath = NodePath("../Player")
+
+[node name="Enemy3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 471, 545 )
 playerNodePath = NodePath("../Player")
 
 [node name="ExampleObstacle" parent="." instance=ExtResource( 3 )]
-position = Vector2( 292, 201 )
+position = Vector2( 989, 137 )
 
 [node name="ExampleObstacle2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 344, 152 )
+position = Vector2( 780, 134 )
 
 [node name="ExampleObstacle3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 239, 242 )
+position = Vector2( 989, 203 )
+
+[node name="ExampleObstacle4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 989, 269 )
+
+[node name="ExampleObstacle5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 990, 335 )
+
+[node name="ExampleObstacle6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 990, 402 )
+
+[node name="ExampleObstacle7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 990, 468 )
+
+[node name="ExampleObstacle8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 786, 467 )
+
+[node name="ExampleObstacle9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 783, 303 )
 
 [connection signal="pathChanged" from="Enemy" to="." method="_on_Enemy_pathChanged"]
+[connection signal="pathChanged" from="Enemy2" to="." method="_on_Enemy_pathChanged"]
+[connection signal="pathChanged" from="Enemy3" to="." method="_on_Enemy_pathChanged"]

@@ -5,17 +5,40 @@ export var speed = 400.0;
 var screen_size = Vector2.ZERO;
 var direction = Vector2.ZERO;
 var aimDirection = Vector2.ZERO;
+var healthPoints = 2;
+var isDead = false;
 var foods = {
 	"pizza" : preload("res://Pizza.tscn")
 }
 
-
+func takeDamage(damage):
+	if not isDead:
+		healthPoints -= damage;
+		
+		# change player color to communicate hurt
+		$AnimatedSprite.modulate = Color(1,0.7,0)
+		yield(get_tree().create_timer(0.1),"timeout");
+		$AnimatedSprite.modulate = Color(1,1,1)
+		print("Player took damage. Health is ", healthPoints);
+		# increase size of enemy
+		if healthPoints <= 0:
+			die();
+func die():
+	if not isDead:
+		isDead = true;
+		# make all enemies stop 
+		hide();
+		get_tree().call_group("enemies","disable");
+		print("Player died")
+		#queue_free();
 
 func _ready():
 	screen_size = get_viewport_rect().size;
 
 
 func _process(_delta):
+	if isDead:
+		return;
 	GetInput();
 
 func GetInput():
@@ -34,6 +57,8 @@ func GetInput():
 		
 
 func _physics_process(_delta):
+	if isDead:
+		return;
 	var _newVelocity = move_and_slide(direction * speed)
 	# keep player within screen
 	position.x = clamp(position.x,0,screen_size.x);

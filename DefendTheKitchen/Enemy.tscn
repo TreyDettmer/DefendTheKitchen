@@ -18,7 +18,10 @@ radius = 21.0238
 collision_layer = 2
 collision_mask = 13
 script = ExtResource( 2 )
-maxSpeed = 80.0
+maxSpeed = 70.0
+canMoveOnAttack = false
+attackWindup = 0.5
+attackDistance = 50
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
