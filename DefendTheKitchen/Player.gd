@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal update_inventory
+signal update_health
 
 export var speed = 400.0;
 var screen_size = Vector2.ZERO;
@@ -26,6 +28,8 @@ func takeDamage(damage):
 		# increase size of enemy
 		if healthPoints <= 0:
 			die();
+		
+		emit_signal("update_health", healthPoints)
 func die():
 	if not isDead:
 		isDead = true;
@@ -43,6 +47,13 @@ func _process(_delta):
 	if isDead:
 		return;
 	GetInput();
+	
+	#Prevents player from clipping into inventory
+	position.y = clamp(position.y, 0, 622)
+	
+	#Keeps inventory positon independent of player movement
+	$Inventory.global_position.x = 512
+	$Inventory.global_position.y = 715
 
 func GetInput():
 	direction = Vector2.ZERO;
@@ -73,11 +84,15 @@ func ThrowFood():
 		owner.add_child(b);
 		b.global_position = global_position;
 		food_count["pizza"] -= 1
+		
+		emit_signal("update_inventory", food_count)
 
 
 func update_food(foodStr):
 	food_count[foodStr] += 1
 	print(food_count[foodStr])
+	
+	emit_signal("update_inventory", food_count)
 
 func _on_Stove_pizza_added():
 	update_food("pizza")
