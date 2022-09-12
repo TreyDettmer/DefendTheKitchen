@@ -11,7 +11,8 @@ var foods = {
 	"pizza" : preload("res://Pizza.tscn")
 }
 var food_count = {
-	"pizza" : 0
+	"pizza" : 0,
+	"icecream" : 0
 }
 
 func takeDamage(damage):
@@ -67,6 +68,15 @@ func _physics_process(_delta):
 	position.y = clamp(position.y,0,screen_size.y);
 
 func ThrowFood():
+	
+	#switch statement with what is equipt currently to switch between things
+	if food_count["pizza"] > 0:
+		var b = foods["pizza"].instance();
+		b.direction = aimDirection;
+		owner.add_child(b);
+		b.global_position = global_position;
+		food_count["pizza"] -= 1
+		
 	if food_count["pizza"] > 0:
 		var b = foods["pizza"].instance();
 		b.direction = aimDirection;
