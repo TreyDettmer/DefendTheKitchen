@@ -10,6 +10,9 @@ var isDead = false;
 var foods = {
 	"pizza" : preload("res://Pizza.tscn")
 }
+var food_count = {
+	"pizza" : 0
+}
 
 func takeDamage(damage):
 	if not isDead:
@@ -54,7 +57,6 @@ func GetInput():
 	aimDirection = (get_global_mouse_position() - global_position).normalized();
 	if Input.is_action_just_pressed("mouse_click"):
 		ThrowFood();
-		
 
 func _physics_process(_delta):
 	if isDead:
@@ -65,8 +67,17 @@ func _physics_process(_delta):
 	position.y = clamp(position.y,0,screen_size.y);
 
 func ThrowFood():
-	var b = foods["pizza"].instance();
-	b.direction = aimDirection;
-	owner.add_child(b);
-	b.global_position = global_position;
-	
+	if food_count["pizza"] > 0:
+		var b = foods["pizza"].instance();
+		b.direction = aimDirection;
+		owner.add_child(b);
+		b.global_position = global_position;
+		food_count["pizza"] -= 1
+
+
+func update_food(foodStr):
+	food_count[foodStr] += 1
+	print(food_count[foodStr])
+
+func _on_Stove_pizza_added():
+	update_food("pizza")

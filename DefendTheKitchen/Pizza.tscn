@@ -4,10 +4,16 @@
 [ext_resource path="res://Pizza.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
+radius = 26.0768
 
 [node name="Pizza" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 speed = 200.0
 
+[node name="AnimatedSprite" parent="." index="0"]
+position = Vector2( 0, 0 )
+scale = Vector2( 1, 1 )
+
 [node name="CollisionShape2D" parent="." index="1"]
+position = Vector2( 0, -1 )
 shape = SubResource( 1 )
