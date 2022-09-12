@@ -15,6 +15,7 @@ animations = [ {
 } ]
 
 [node name="Player" type="KinematicBody2D" groups=["players"]]
+pause_mode = 2
 position = Vector2( 558, 291 )
 collision_mask = 6
 script = ExtResource( 2 )

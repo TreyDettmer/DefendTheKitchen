@@ -57,6 +57,8 @@ func GetInput():
 	aimDirection = (get_global_mouse_position() - global_position).normalized();
 	if Input.is_action_just_pressed("mouse_click"):
 		ThrowFood();
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused = !get_tree().paused;
 
 func _physics_process(_delta):
 	if isDead:
