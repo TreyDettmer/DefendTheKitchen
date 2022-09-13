@@ -70,6 +70,7 @@ func _physics_process(_delta):
 func ThrowFood():
 	
 	#switch statement with what is equipt currently to switch between things
+	
 	if food_count["pizza"] > 0:
 		var b = foods["pizza"].instance();
 		b.direction = aimDirection;
@@ -77,12 +78,12 @@ func ThrowFood():
 		b.global_position = global_position;
 		food_count["pizza"] -= 1
 		
-	if food_count["pizza"] > 0:
-		var b = foods["pizza"].instance();
+	if food_count["icecream"] > 0:
+		var b = foods["icecream"].instance();
 		b.direction = aimDirection;
 		owner.add_child(b);
 		b.global_position = global_position;
-		food_count["pizza"] -= 1
+		food_count["icecream"] -= 1
 
 
 func update_food(foodStr):
