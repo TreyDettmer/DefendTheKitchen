@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Art/chefHat64x46.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://Art/inv_hotbar.png" type="Texture" id=3]
+[ext_resource path="res://Inventory.gd" type="Script" id=4]
+[ext_resource path="res://Art/pizza-64x64.png" type="Texture" id=5]
+[ext_resource path="res://Art/health_sprite.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 11.5 )
@@ -15,6 +19,7 @@ animations = [ {
 } ]
 
 [node name="Player" type="KinematicBody2D" groups=["players"]]
+pause_mode = 2
 position = Vector2( 558, 291 )
 collision_mask = 6
 script = ExtResource( 2 )
@@ -28,3 +33,28 @@ shape = SubResource( 1 )
 position = Vector2( -3, 1 )
 scale = Vector2( 0.515385, 0.515385 )
 frames = SubResource( 2 )
+
+[node name="Inventory" type="Node2D" parent="."]
+position = Vector2( 512, 744 )
+script = ExtResource( 4 )
+
+[node name="Hotbar" type="Sprite" parent="Inventory"]
+texture = ExtResource( 3 )
+
+[node name="PizzaIcon" type="Sprite" parent="Inventory"]
+position = Vector2( -464, -32 )
+texture = ExtResource( 5 )
+
+[node name="PizzaLabel" type="Label" parent="Inventory"]
+margin_left = -488.0
+margin_right = -448.0
+margin_bottom = 14.0
+rect_scale = Vector2( 1.2, 1.00505 )
+text = "0"
+align = 1
+
+[node name="HealthBar" type="Sprite" parent="Inventory"]
+texture = ExtResource( 6 )
+
+[connection signal="update_health" from="." to="Inventory" method="_on_Player_update_health"]
+[connection signal="update_inventory" from="." to="Inventory" method="_on_Player_update_inventory"]
