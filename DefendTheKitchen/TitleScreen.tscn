@@ -50,5 +50,6 @@ custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Nux Mode"
 
+[connection signal="nux_mode" from="." to="." method="set_nuxMode"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="toggled" from="ToggleNuxMode" to="." method="_on_ToggleNuxMode_toggled"]

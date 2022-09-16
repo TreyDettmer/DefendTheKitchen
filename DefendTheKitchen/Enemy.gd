@@ -22,11 +22,10 @@ export var healthPoints = 3;
 var currentColor = Color(1,1,1);
 
 func _ready():
-	if player != null:
-		player = get_node(playerNodePath);
-		navigationAgent.set_target_location(player.global_position);
-		navigationAgent.max_speed = maxSpeed;
-		$AnimatedSprite.modulate = currentColor;
+	player = get_node("../Player");
+	navigationAgent.set_target_location(player.global_position);
+	navigationAgent.max_speed = maxSpeed;
+	$AnimatedSprite.modulate = currentColor;
 
 func _process(delta):
 	if isDead:

@@ -102,7 +102,7 @@ func update_food(foodStr):
 
 func _on_Stove_pizza_added():
 	update_food("pizza")
-
-
-func _on_TitleScreen_nux_mode_on():
-	healthPoints = 100000 #essentially unkillable
+	
+func nuxMode(nuxToggle: bool):
+	if nuxToggle:
+		healthPoints = 100000 #essentially unkillable

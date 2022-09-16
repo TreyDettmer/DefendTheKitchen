@@ -16,7 +16,7 @@ func handle_level_changed(current_level_num: int):
 	add_child(next_level)
 
 	next_level.connect("level_changed", self, "handle_level_changed")
-	#transfer_data_between_scenes(current_level, next_level)
+	transfer_data_between_scenes(current_level, next_level)
 	current_level.queue_free()
 	current_level = next_level
 

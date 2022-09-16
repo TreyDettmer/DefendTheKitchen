@@ -9,12 +9,14 @@ onready var line = $Line2D;
 export (String) var level_name = "level"
 
 var level_parameters := {
-	"gold": 0
+	"gold": 0,
+	"nuxMode" : false
 }
 
 #loading old level params into the new level so we don't lose things like health, gold, etc
 func load_level_parameters(new_level_parameters: Dictionary):
 	level_parameters = new_level_parameters
+	$Player.nuxMode(level_parameters.nuxMode)
 	$GoldLabel.text = "Gold: " + str(level_parameters.gold)
 
 # Functionality for playing sounds when switching levels
