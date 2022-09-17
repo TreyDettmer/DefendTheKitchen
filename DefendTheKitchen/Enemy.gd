@@ -22,7 +22,7 @@ export var healthPoints = 3;
 var currentColor = Color(1,1,1);
 
 func _ready():
-	player = get_node(playerNodePath);
+	player = get_node("../Player");
 	navigationAgent.set_target_location(player.global_position);
 	navigationAgent.max_speed = maxSpeed;
 	$AnimatedSprite.modulate = currentColor;
@@ -34,18 +34,19 @@ func _process(delta):
 
 		
 func _physics_process(_delta):
-	if isDead:
-		return;
+	if player != null:
+		if isDead:
+			return;
 	
-	# if we are close enough to player then attack
-	if canAttack and (player.global_position - global_position).length_squared() < attackDistance*attackDistance:
-		
-		# ensure that there is nothing between us and the player
-		var space_state = get_world_2d().direct_space_state;
-		var raycastResult = space_state.intersect_ray(global_position,player.global_position,[self],0b0001)
-		if raycastResult:
+		# if we are close enough to player then attack
+		if canAttack and (player.global_position - global_position).length_squared() < attackDistance*attackDistance:
 			
-			attackPlayer();
+			# ensure that there is nothing between us and the player
+			var space_state = get_world_2d().direct_space_state;
+			var raycastResult = space_state.intersect_ray(global_position,player.global_position,[self],0b0001)
+			if raycastResult:
+			
+				attackPlayer();
 		
 
 func CalculateMovement(_delta):
@@ -92,24 +93,25 @@ func _on_NavigationAgent2D_path_changed():
 
 
 func attackPlayer():
-	isAttacking = true;
-	canAttack = false;
-	print("starting attack...")
-	if not canMoveOnAttack:
-		canMove = false;
-	$AnimatedSprite.modulate = Color(1,0,0);
-	yield(get_tree().create_timer(attackWindup),"timeout");
-	if (player.global_position - global_position).length_squared() < attackDistance*attackDistance and not isDead:
-		player.takeDamage(1.0)
-		print("hit")
-	else:
-		print("missed")
+	if player != null:
+		isAttacking = true;
+		canAttack = false;
+		print("starting attack...")
+		if not canMoveOnAttack:
+			canMove = false;
+		$AnimatedSprite.modulate = Color(1,0,0);
+		yield(get_tree().create_timer(attackWindup),"timeout");
+		if (player.global_position - global_position).length_squared() < attackDistance*attackDistance and not isDead:
+			player.takeDamage(1.0)
+			print("hit")
+		else:
+			print("missed")
 	
-	if not canMoveOnAttack:
-		canMove = true;
-	$AnimatedSprite.modulate = currentColor;
-	isAttacking = false;
-	yield(get_tree().create_timer(attackCooldown),"timeout");
-	canAttack = true;
+		if not canMoveOnAttack:
+			canMove = true;
+		$AnimatedSprite.modulate = currentColor;
+		isAttacking = false;
+		yield(get_tree().create_timer(attackCooldown),"timeout");
+		canAttack = true;
 	
 
