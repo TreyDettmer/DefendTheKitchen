@@ -18,3 +18,4 @@ func start():
 	
 func destroy():
 	queue_free();
+

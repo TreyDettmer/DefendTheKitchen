@@ -14,13 +14,6 @@ config/name="DefendTheKitchen"
 run/main_scene="res://Main.tscn"
 config/icon="res://Art/icon.png"
 
-[autoload]
-
-PluginSettings="*res://addons/github-integration/scripts/PluginSettings.gd"
-IconLoaderGithub="*res://addons/github-integration/scripts/IconLoaderGithub.gd"
-UserData="*res://addons/github-integration/scripts/user_data.gd"
-RestHandler="*res://addons/github-integration/scenes/RestHandler.tscn"
-
 [display]
 
 window/size/height=740
@@ -84,6 +77,10 @@ pause={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Wall"
 2d_physics/layer_4="FoodProjectile"
+2d_physics/layer_5="Tilemap"
+2d_navigation/layer_2="normal"
+2d_navigation/layer_3="wide"
+2d_navigation/layer_4="tight"
 
 [physics]
 
