@@ -23,7 +23,10 @@ export (float) var attackWindup;
 export (float) var attackDistance;
 export var healthPoints = 1;
 export var currentColor = Color(1,1,1);
-
+#effects from items that impact the enemies
+export var statusEffect = {
+	"frost" : 40 #lowers speed by 40
+}
 var normalEnemyPrefab = load("res://Enemy_Normal.tscn");
 var bigEnemyPrefab = load("res://Enemy_Big.tscn");
 var fastEnemyPrefab = load("res://Enemy_Fast.tscn");
@@ -72,8 +75,6 @@ func CalculateMovement(_delta):
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
-		
-		
 		
 func takeDamage(damage):
 	if not isDead:
@@ -131,3 +132,11 @@ func _on_AttackCooldownTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.get_parent().is_in_group("food"):
 		area.get_parent().HitEnemy(self);
+
+func statusEffect(effect):
+	match effect:
+		"frost": #reduce the speed from frost
+			#var prevSpeed = maxSpeed #assign temp variable for holding old speed
+			maxSpeed -= statusEffect.frost
+			yield(get_tree().create_timer(2.0), "timeout")
+			maxSpeed += statusEffect.frost
