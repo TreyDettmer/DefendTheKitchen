@@ -21,6 +21,6 @@ func _on_Area2D_area_entered(area):
 	
 
 func HitEnemy(enemy):
-	enemy.statusEffect("frost")
+	enemy.activateStatusEffect("frost")
 	enemy.takeDamage(1.0);
 	destroy();

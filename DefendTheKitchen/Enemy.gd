@@ -3,8 +3,6 @@ extends KinematicBody2D
 # This is the "abstract" class that all enemy types inherit from
 
 
-
-
 onready var navigationAgent = $NavigationAgent2D;
 
 signal pathChanged(path);
@@ -13,6 +11,7 @@ signal died(_self);
 var player = null;
 var velocity = Vector2.ZERO;
 export (float) var maxSpeed = 70.0;
+var origSpeed = 0.0;
 var isDead = false;
 var canMove = true;
 export var canMoveOnAttack = true;
@@ -133,10 +132,13 @@ func _on_Area2D_area_entered(area):
 	if area.get_parent().is_in_group("food"):
 		area.get_parent().HitEnemy(self);
 
-func statusEffect(effect):
+func activateStatusEffect(effect):
 	match effect:
 		"frost": #reduce the speed from frost
-			#var prevSpeed = maxSpeed #assign temp variable for holding old speed
+			origSpeed = maxSpeed #assign temp variable for holding old speed
 			maxSpeed -= statusEffect.frost
-			yield(get_tree().create_timer(2.0), "timeout")
-			maxSpeed += statusEffect.frost
+			$StatusEffectTimer.start()
+
+func _on_StatusEffectTimer_timeout():
+	#reset the speed from an effect
+	maxSpeed = origSpeed
