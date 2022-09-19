@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Level.gd" type="Script" id=1]
 [ext_resource path="res://TileMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://IcecreamMachine.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Stove.tscn" type="PackedScene" id=5]
 
 [sub_resource type="NavigationPolygon" id=1]
@@ -41,18 +42,14 @@ navigation_layers = 4
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 903, 303 )
+gold = 25
 
 [node name="Stove" parent="." instance=ExtResource( 5 )]
 position = Vector2( 992, 284 )
 
-[node name="GoldLabel" type="Label" parent="."]
-margin_left = 631.0
-margin_top = 673.0
-margin_right = 750.0
-margin_bottom = 710.0
-text = "Gold: "
-valign = 1
-uppercase = true
+[node name="IcecreamMachine" parent="." instance=ExtResource( 4 )]
+position = Vector2( 898, 60 )
+collision_layer = 1
 
 [node name="EnemySpawnPoints" type="Node2D" parent="."]
 
@@ -93,3 +90,4 @@ position = Vector2( 32, 736 )
 position = Vector2( 40, -64 )
 
 [connection signal="pizza_added" from="Stove" to="Player" method="_on_Stove_pizza_added"]
+[connection signal="icecream_added" from="IcecreamMachine" to="Player" method="_on_IcecreamMachine_icecream_added"]

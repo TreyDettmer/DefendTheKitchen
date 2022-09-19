@@ -24,6 +24,7 @@ var possibleSpawnPoints = [];
 var waves = [Wave.new(1,1,1), Wave.new(4,1,1)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
+export var waveGold = 100;
 
 export (String) var level_name = "level"
 
@@ -36,7 +37,7 @@ var level_parameters := {
 func load_level_parameters(new_level_parameters: Dictionary):
 	level_parameters = new_level_parameters
 	$Player.nuxMode(level_parameters.nuxMode)
-	$GoldLabel.text = "Gold: " + str(level_parameters.gold)
+	#$GoldLabel.text = "Gold: " + str(level_parameters.gold)
 	
 	start_level();
 	
@@ -45,20 +46,9 @@ func start_level():
 	possibleSpawnPoints = $EnemySpawnPoints.get_children();
 	spawn_wave();
 
-# Functionality for playing sounds when switching levels
-#func play_loaded_sound() -> void:
-#	$LevelLoadedSound.play()
-#	$ChangeSceneButton.disabled = false
-
-#func cleanup():
-#	if $ButtonClickedSound.playing:
-#		yield($ButtonClickedSound, "finished")
-#	queue_free()
-
-
 func set_gold(new_gold_amount: int):
 	level_parameters.gold = new_gold_amount
-	$GoldLabel.text = "Gold: " + str(level_parameters.gold)
+	#$GoldLabel.text = "Gold: " + str(level_parameters.gold)
 
 
 #functionality for changing scenes from a button
@@ -115,7 +105,6 @@ func spawn_wave():
 	for _n in range(wave.bigEnemyCount):
 		var enemy = bigEnemyPrefab.instance();
 		
-		
 		enemy.position = possibleSpawnPoints[spawnPointIndex % possibleSpawnPoints.size()].position;
 		
 		# connect enemy death signal so we can update enemy count
@@ -135,6 +124,10 @@ func enemy_died(_enemy):
 		
 func complete_wave():
 	print("Completed wave");
+	
+	$Player.setGold($Player.getGold() + waveGold) #Adding reward gold to players inventory
+	print("Added " + str(waveGold) + " Gold")
+	
 	currentWave += 1;
 	if currentWave > waves.size():
 		print("You won!");
