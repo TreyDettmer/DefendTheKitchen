@@ -88,7 +88,8 @@ func ThrowFood():
 		var b = foods["pizza"].instance();
 		b.direction = aimDirection;
 		owner.add_child(b);
-		b.global_position = global_position;
+		# spawn food in front of player
+		b.global_position = global_position + aimDirection * 30.0;
 		food_count["pizza"] -= 1
 		
 		emit_signal("update_inventory", food_count)
