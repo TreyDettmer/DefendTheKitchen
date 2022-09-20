@@ -89,5 +89,10 @@ position = Vector2( 32, 736 )
 [node name="EnemySpawnPoint12" type="Node2D" parent="EnemySpawnPoints"]
 position = Vector2( 40, -64 )
 
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="pizza_added" from="Stove" to="Player" method="_on_Stove_pizza_added"]
 [connection signal="icecream_added" from="IcecreamMachine" to="Player" method="_on_IcecreamMachine_icecream_added"]
+[connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]

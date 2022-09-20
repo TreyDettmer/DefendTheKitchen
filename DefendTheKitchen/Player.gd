@@ -80,6 +80,7 @@ func GetInput():
 		currentEquip = 1; #pizza
 	if Input.is_action_just_pressed("Equip2"):
 		currentEquip = 2; #icecream
+	#if Input.is_action_just_pressed("pause"):
 
 func _physics_process(_delta):
 	if isDead:

@@ -54,8 +54,6 @@ func set_gold(new_gold_amount: int):
 #functionality for changing scenes from a button
 #make all levels when complete set this off
 func _on_ChangeScene() -> void:
-	#$ButtonClickedSound.play()
-	#$ChangeSceneButton.disabled = true
 	#gives 100 gold at the end of each level
 	set_gold(level_parameters.gold + 100)
 	emit_signal("level_changed", level_name)
@@ -132,4 +130,9 @@ func complete_wave():
 	if currentWave > waves.size():
 		print("You won!");
 	else:	
-		spawn_wave();
+		#start the timer for waiting inbetween waves
+		$WaveTimer.start()
+		#spawn_wave();
+
+func _on_WaveTimer_timeout():
+	spawn_wave();
