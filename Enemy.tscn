@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Art/icon.png" type="Texture" id=1]
+[ext_resource path="res://Enemy.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 21.095
+
+[node name="Enemy" type="KinematicBody2D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 13
+script = ExtResource( 2 )
+canMoveOnAttack = false
+attackWindup = 0.5
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.5708
+scale = Vector2( 0.7, 0.7 )
+frames = SubResource( 1 )
+
+[node name="NavigationCollider" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 9
+
+[node name="WorldColliderArea" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 3 )
+
+[node name="AttackWindupTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AttackCooldownTimer" type="Timer" parent="."]
+
+[node name="StatusEffectTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="path_changed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_path_changed"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="timeout" from="AttackWindupTimer" to="." method="_on_AttackWindupTimer_timeout"]
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_AttackCooldownTimer_timeout"]
+[connection signal="timeout" from="StatusEffectTimer" to="." method="_on_StatusEffectTimer_timeout"]

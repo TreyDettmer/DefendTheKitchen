@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemy_Fast.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 16.0
+
+[node name="Enemy_Fast" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+maxSpeed = 110.0
+canMoveOnAttack = true
+attackCooldown = 0.6
+attackWindup = 0.4
+attackDistance = 50.0
+currentColor = Color( 0.85098, 0, 1, 1 )
+
+[node name="NavigationCollider" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="NavigationAgent2D" parent="." index="2"]
+navigation_layers = 2
