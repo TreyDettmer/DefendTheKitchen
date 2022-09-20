@@ -2,6 +2,8 @@ extends CanvasLayer
 
 
 signal level_changed(level_name)
+signal wave_finished
+signal start_wave(currentWave)
 
 class Wave:
 	var normalEnemyCount: int;
@@ -126,13 +128,14 @@ func complete_wave():
 	$Player.setGold($Player.getGold() + waveGold) #Adding reward gold to players inventory
 	print("Added " + str(waveGold) + " Gold")
 	
-	currentWave += 1;
-	if currentWave > waves.size():
+	if currentWave - 1 > waves.size():
 		print("You won!");
 	else:	
 		#start the timer for waiting inbetween waves
-		$WaveTimer.start()
-		#spawn_wave();
+		emit_signal("wave_finished")
 
-func _on_WaveTimer_timeout():
+#received from the button pressed by the player to go to the next wave
+func _on_HUD_nextWave():
+	currentWave += 1;
+	emit_signal("start_wave", currentWave)
 	spawn_wave();

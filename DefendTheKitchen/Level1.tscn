@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Level.gd" type="Script" id=1]
 [ext_resource path="res://TileMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://IcecreamMachine.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Stove.tscn" type="PackedScene" id=5]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 848, 464, 944, 560, 752, 560, 656, 528, 752, 464, 848, 336, 944, 80, 848, 368, 848, 240, 1144, -160, 1152, 888, 1040, 656, 1040, -16, -272, -160, 752, -16, 656, 368, 752, 368, -280, 888, 752, 656, 496, 368, 848, 208, 848, 80, 752, 208, 752, 240, 496, 528, 752, 336 )
@@ -89,10 +90,11 @@ position = Vector2( 32, 736 )
 [node name="EnemySpawnPoint12" type="Node2D" parent="EnemySpawnPoints"]
 position = Vector2( 40, -64 )
 
-[node name="WaveTimer" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
+[node name="HUD" parent="." instance=ExtResource( 6 )]
 
+[connection signal="start_wave" from="." to="HUD" method="_on_Level1_start_wave"]
+[connection signal="wave_finished" from="." to="HUD" method="_on_Level1_wave_finished"]
+[connection signal="update_gold" from="Player" to="HUD" method="_on_Player_update_gold"]
 [connection signal="pizza_added" from="Stove" to="Player" method="_on_Stove_pizza_added"]
 [connection signal="icecream_added" from="IcecreamMachine" to="Player" method="_on_IcecreamMachine_icecream_added"]
-[connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
+[connection signal="nextWave" from="HUD" to="." method="_on_HUD_nextWave"]

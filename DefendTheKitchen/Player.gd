@@ -58,8 +58,8 @@ func _process(_delta):
 	position.y = clamp(position.y, 0, 622)
 	
 	#Keeps inventory positon independent of player movement
-	$Inventory.global_position.x = 512
-	$Inventory.global_position.y = 715
+	#$Inventory.global_position.x = 512
+	#$Inventory.global_position.y = 715
 
 func GetInput():
 	direction = Vector2.ZERO;
