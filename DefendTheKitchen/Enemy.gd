@@ -3,8 +3,6 @@ extends KinematicBody2D
 # This is the "abstract" class that all enemy types inherit from
 
 
-
-
 onready var navigationAgent = $NavigationAgent2D;
 
 signal pathChanged(path);
@@ -13,6 +11,7 @@ signal died(_self);
 var player = null;
 var velocity = Vector2.ZERO;
 export (float) var maxSpeed = 70.0;
+var origSpeed = 0.0;
 var isDead = false;
 var canMove = true;
 export var canMoveOnAttack = true;
@@ -23,7 +22,10 @@ export (float) var attackWindup;
 export (float) var attackDistance;
 export var healthPoints = 1;
 export var currentColor = Color(1,1,1);
-
+#effects from items that impact the enemies
+export var statusEffect = {
+	"frost" : 40 #lowers speed by 40
+}
 var normalEnemyPrefab = load("res://Enemy_Normal.tscn");
 var bigEnemyPrefab = load("res://Enemy_Big.tscn");
 var fastEnemyPrefab = load("res://Enemy_Fast.tscn");
@@ -72,8 +74,6 @@ func CalculateMovement(_delta):
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
-		
-		
 		
 func takeDamage(damage):
 	if not isDead:
@@ -131,3 +131,14 @@ func _on_AttackCooldownTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.get_parent().is_in_group("food"):
 		area.get_parent().HitEnemy(self);
+
+func activateStatusEffect(effect):
+	match effect:
+		"frost": #reduce the speed from frost
+			origSpeed = maxSpeed #assign temp variable for holding old speed
+			maxSpeed -= statusEffect.frost
+			$StatusEffectTimer.start()
+
+func _on_StatusEffectTimer_timeout():
+	#reset the speed from an effect
+	maxSpeed = origSpeed

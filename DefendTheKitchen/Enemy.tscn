@@ -47,8 +47,13 @@ one_shot = true
 
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 
+[node name="StatusEffectTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="path_changed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_path_changed"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_NavigationAgent2D_velocity_computed"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="AttackWindupTimer" to="." method="_on_AttackWindupTimer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_AttackCooldownTimer_timeout"]
+[connection signal="timeout" from="StatusEffectTimer" to="." method="_on_StatusEffectTimer_timeout"]
