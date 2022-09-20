@@ -2,6 +2,8 @@ extends CanvasLayer
 
 
 signal level_changed(level_name)
+signal wave_finished
+signal start_wave(currentWave)
 
 class Wave:
 	var normalEnemyCount: int;
@@ -54,8 +56,6 @@ func set_gold(new_gold_amount: int):
 #functionality for changing scenes from a button
 #make all levels when complete set this off
 func _on_ChangeScene() -> void:
-	#$ButtonClickedSound.play()
-	#$ChangeSceneButton.disabled = true
 	#gives 100 gold at the end of each level
 	set_gold(level_parameters.gold + 100)
 	emit_signal("level_changed", level_name)
@@ -128,8 +128,14 @@ func complete_wave():
 	$Player.setGold($Player.getGold() + waveGold) #Adding reward gold to players inventory
 	print("Added " + str(waveGold) + " Gold")
 	
-	currentWave += 1;
-	if currentWave > waves.size():
+	if currentWave - 1 > waves.size():
 		print("You won!");
 	else:	
-		spawn_wave();
+		#start the timer for waiting inbetween waves
+		emit_signal("wave_finished")
+
+#received from the button pressed by the player to go to the next wave
+func _on_HUD_nextWave():
+	currentWave += 1;
+	emit_signal("start_wave", currentWave)
+	spawn_wave();
