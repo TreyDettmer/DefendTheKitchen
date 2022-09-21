@@ -18,7 +18,7 @@ var foods = {
 	"icecream" : preload("res://Icecream.tscn")
 }
 var food_count = {
-	"pizza" : 0,
+	"pizza" : 1,
 	"icecream" : 0
 }
 
@@ -65,13 +65,20 @@ func GetInput():
 	direction = Vector2.ZERO;
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1;
-	if Input.is_action_pressed("move_left"):
+		$AnimatedSprite.play("walk");
+	elif Input.is_action_pressed("move_left"):
 		direction.x -= 1;
-	if Input.is_action_pressed("move_down"):
+		$AnimatedSprite.play("walk");
+	elif Input.is_action_pressed("move_down"):
 		direction.y += 1;
-	if Input.is_action_pressed("move_up"):
+		$AnimatedSprite.play("walk");
+	elif Input.is_action_pressed("move_up"):
 		direction.y -= 1;
+		$AnimatedSprite.play("walk");
+	else:
+		$AnimatedSprite.play("default");
 	aimDirection = (get_global_mouse_position() - global_position).normalized();
+	$AnimatedSprite.rotation = aimDirection.angle() + 90;
 	if Input.is_action_just_pressed("mouse_click"):
 		ThrowFood();
 	if Input.is_action_just_pressed("pause"):

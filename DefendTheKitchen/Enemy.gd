@@ -29,6 +29,7 @@ export var statusEffect = {
 var normalEnemyPrefab = load("res://Enemy_Normal.tscn");
 var bigEnemyPrefab = load("res://Enemy_Big.tscn");
 var fastEnemyPrefab = load("res://Enemy_Fast.tscn");
+var targettedFood = null;
 
 # thresholds that determine which navigation polygon (tight, normal, or wide) the enemy should be attached to
 var navigationPolygonThresholds = {
@@ -70,7 +71,11 @@ func _physics_process(_delta):
 func CalculateMovement(_delta):
 	if player != null and canMove:
 		# move towards the player
-		navigationAgent.set_target_location(player.global_position);
+		
+		if (targettedFood != null):
+			navigationAgent.set_target_location(targettedFood.global_position);
+		else:
+			navigationAgent.set_target_location(player.global_position);
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
@@ -142,3 +147,8 @@ func activateStatusEffect(effect):
 func _on_StatusEffectTimer_timeout():
 	#reset the speed from an effect
 	maxSpeed = origSpeed
+	
+func setFoodLure(food):
+	print("Set target!");
+	if (targettedFood == null):
+		targettedFood = food;
