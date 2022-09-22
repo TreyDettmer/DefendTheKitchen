@@ -43,4 +43,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MobLure" index="0"]
 shape = SubResource( 3 )
 
+[node name="MobLureTimer" type="Timer" parent="." index="4"]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="body_entered" from="MobLure" to="." method="_on_MobLure_body_entered"]
+[connection signal="timeout" from="MobLureTimer" to="." method="_on_MobLureTimer_timeout"]

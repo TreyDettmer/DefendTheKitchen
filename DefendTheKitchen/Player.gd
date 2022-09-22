@@ -66,16 +66,18 @@ func GetInput():
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1;
 		$AnimatedSprite.play("walk");
-	elif Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("move_left"):
 		direction.x -= 1;
 		$AnimatedSprite.play("walk");
-	elif Input.is_action_pressed("move_down"):
+	if Input.is_action_pressed("move_down"):
 		direction.y += 1;
 		$AnimatedSprite.play("walk");
-	elif Input.is_action_pressed("move_up"):
+	if Input.is_action_pressed("move_up"):
 		direction.y -= 1;
 		$AnimatedSprite.play("walk");
-	else:
+	# I'm sorry, I know this sucks :(
+	if (!Input.is_action_pressed("move_up") and !Input.is_action_pressed("move_down")
+	and !Input.is_action_pressed("move_left") and !Input.is_action_pressed("move_right")):
 		$AnimatedSprite.play("default");
 	aimDirection = (get_global_mouse_position() - global_position).normalized();
 	$AnimatedSprite.rotation = aimDirection.angle() + 90;

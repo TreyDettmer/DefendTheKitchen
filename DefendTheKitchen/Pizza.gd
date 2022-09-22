@@ -2,6 +2,7 @@ extends "res://Food.gd"
 
 var health = 8;
 var maxLure = 4;
+var luredMobs = [];
 
 func _process(delta):
 	rotation += rotationSpeed * delta;
@@ -23,5 +24,25 @@ func HitEnemy(enemy):
 
 
 func _on_MobLure_body_entered(body):
-	if (body.is_in_group("enemies") or body.get_parent().get_filename() == "res://Enemy.tscn"):
+	if ((body.is_in_group("enemies") or body.get_parent().get_filename() == "res://Enemy.tscn")
+		and maxLure > 0):
+			
 		body.setFoodLure(self);
+		maxLure -= 1;
+		luredMobs.push_back(body);
+		
+		$MobLureTimer.start();
+		
+		
+# This function is used to cause a mob to repeatedly tick damage when inside
+# the range of the pizza
+func _on_MobLureTimer_timeout():
+	
+	var timerFlag = false;
+	for mob in luredMobs:
+		if mob != null and is_instance_valid(mob):
+			HitEnemy(mob);
+			timerFlag = true;
+	
+	if timerFlag:
+		$MobLureTimer.start();
