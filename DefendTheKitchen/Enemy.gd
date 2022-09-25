@@ -134,7 +134,7 @@ func _on_AttackCooldownTimer_timeout():
 
 
 func _on_Area2D_area_entered(area):
-	if area.get_parent().is_in_group("food"):
+	if area.get_parent().is_in_group("food") and area.name == "FoodArea2D":
 		area.get_parent().HitEnemy(self);
 
 func activateStatusEffect(effect):
