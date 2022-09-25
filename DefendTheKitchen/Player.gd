@@ -20,7 +20,7 @@ var foods = {
 	"icecream" : preload("res://Icecream.tscn")
 }
 var food_count = {
-	"pizza" : 1,
+	"pizza" : 0,
 	"icecream" : 0
 }
 
