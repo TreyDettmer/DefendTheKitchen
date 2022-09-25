@@ -152,3 +152,9 @@ func _on_Stove_pizza_added():
 
 func _on_IcecreamMachine_icecream_added():
 	update_food("icecream")
+	
+
+#controls interactions between the player and loot
+func _on_Area2D_area_entered(area):
+	if area.get_parent().is_in_group("loot") and area.name == "LootArea2D":
+		area.get_parent().HitPlayer(self);

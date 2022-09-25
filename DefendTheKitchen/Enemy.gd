@@ -24,12 +24,14 @@ export var healthPoints = 1;
 export var currentColor = Color(1,1,1);
 #effects from items that impact the enemies
 export var statusEffect = {
-	"frost" : 40 #lowers speed by 40
+	"frost" : 50 #lowers speed by 50
 }
 var normalEnemyPrefab = load("res://Enemy_Normal.tscn");
 var bigEnemyPrefab = load("res://Enemy_Big.tscn");
 var fastEnemyPrefab = load("res://Enemy_Fast.tscn");
 var targettedFood = null;
+
+var randRng = RandomNumberGenerator.new()
 
 # thresholds that determine which navigation polygon (tight, normal, or wide) the enemy should be attached to
 var navigationPolygonThresholds = {
@@ -87,6 +89,7 @@ func takeDamage(damage):
 		$AnimatedSprite.modulate = currentColor;	
 		if healthPoints <= 0:
 			die();
+			spawnLoot()
 
 func die():
 	if not isDead:
@@ -152,3 +155,10 @@ func setFoodLure(food):
 	print("Set target!");
 	if (targettedFood == null):
 		targettedFood = food;
+
+func spawnLoot():
+	emit_signal("spawnLoot")
+	#var loot = $loot.instance();
+	#owner.add_child(loot);
+	# spawn loot where the enemy was
+	#loot.global_position = global_position
