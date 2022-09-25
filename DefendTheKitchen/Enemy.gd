@@ -89,7 +89,6 @@ func takeDamage(damage):
 		$AnimatedSprite.modulate = currentColor;	
 		if healthPoints <= 0:
 			die();
-			spawnLoot()
 
 func die():
 	if not isDead:
@@ -155,10 +154,3 @@ func setFoodLure(food):
 	print("Set target!");
 	if (targettedFood == null):
 		targettedFood = food;
-
-func spawnLoot():
-	emit_signal("spawnLoot")
-	#var loot = $loot.instance();
-	#owner.add_child(loot);
-	# spawn loot where the enemy was
-	#loot.global_position = global_position
