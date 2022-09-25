@@ -9,7 +9,8 @@ signal pizza_added
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$ProgressBar.visible = false;
+	$FoodSprite.visible = false;
 
 func _input(event: InputEvent):
 	# don't allow interaction during downtime
@@ -20,24 +21,30 @@ func _input(event: InputEvent):
 		$StoveTimer.start()
 		is_cooking = true
 		done_cooking = false
-		$AnimatedSprite.modulate = Color(1,0.7,0)
+		$ProgressBar.visible = true;
 		print("Food is cooking!")
 	#pick up cooked food
 	if event.is_action_pressed("interact") and is_player_inside and done_cooking:
 		drop_pizza() #add a pizza to the player's inventory
 		is_cooking = false
-		$AnimatedSprite.modulate = Color(1,1,1)
 		print("You have received your food!")
 		
 	
+func _process(delta):
+	if !$StoveTimer.is_stopped():
+		if $StoveTimer.get_time_left() > 0:
+			var percent = ((1 - $StoveTimer.get_time_left() / $StoveTimer.get_wait_time()) * 100);
+			$ProgressBar.value = int(percent);
 
 func _on_StoveTimer_timeout():
 	done_cooking = true
-	$AnimatedSprite.modulate = Color(0,1.0,0)
+	$ProgressBar.visible = false;
+	$FoodSprite.visible = true;
 	print("Done cooking!");
 
 #drop the pizza into the player's inventory
 func drop_pizza():
+	$FoodSprite.visible = false;
 	emit_signal("pizza_added")
 	
 
