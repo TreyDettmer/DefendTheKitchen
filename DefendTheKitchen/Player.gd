@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-signal update_inventory;
+signal update_inventory(_food_count,_currentEquip);
 signal update_health;
 signal update_gold(gold);
 
@@ -20,7 +20,7 @@ var foods = {
 	"icecream" : preload("res://Icecream.tscn")
 }
 var food_count = {
-	"pizza" : 1,
+	"pizza" : 0,
 	"icecream" : 0
 }
 
@@ -85,10 +85,20 @@ func GetInput():
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused;
 	if Input.is_action_just_pressed("Equip1"):
-		currentEquip = 1; #pizza
+		if food_count.values()[0] != 0:
+			currentEquip = 1; #pizza
+			emit_signal("update_inventory", food_count,currentEquip)
 	if Input.is_action_just_pressed("Equip2"):
-		currentEquip = 2; #icecream
-	#if Input.is_action_just_pressed("pause"):
+		if food_count.values()[1] != 0:
+			currentEquip = 2; #icecream
+			emit_signal("update_inventory", food_count,currentEquip)
+	
+	
+func hasFood():
+	for value in food_count.values():
+		if value != 0:
+			return true;
+	return false;
 
 func _physics_process(_delta):
 	if isDead:
@@ -113,7 +123,7 @@ func ThrowFood():
 				b.global_position = global_position + aimDirection * 30.0;
 				food_count["pizza"] -= 1
 				
-				emit_signal("update_inventory", food_count)
+				emit_signal("update_inventory", food_count,currentEquip)
 		2:
 			if food_count["icecream"] > 0:
 				var b = foods["icecream"].instance();
@@ -123,14 +133,17 @@ func ThrowFood():
 				b.global_position = global_position + aimDirection * 30.0;
 				food_count["icecream"] -= 1
 				
-				emit_signal("update_inventory", food_count)
+				emit_signal("update_inventory", food_count,currentEquip)
 
 
 func update_food(foodStr):
+	if !hasFood():
+		currentEquip = food_count.keys().find(foodStr) + 1;
+		print("Current equip set to " + String(currentEquip))
 	food_count[foodStr] += 1
 	print("You have " + str(food_count[foodStr]) + " " + foodStr)
 	
-	emit_signal("update_inventory", food_count)
+	emit_signal("update_inventory", food_count,currentEquip)
 
 
 #turns on nux mode for testing, makes the player ESSENTIALLY unkillable

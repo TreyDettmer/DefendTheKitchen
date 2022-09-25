@@ -44,7 +44,7 @@ func _ready():
 	navigationAgent.set_target_location(player.global_position);
 	navigationAgent.max_speed = maxSpeed;
 	$AnimatedSprite.modulate = currentColor;
-	
+	$HealthLabel.text = String(healthPoints);
 
 func _process(delta):
 	if isDead:
@@ -83,6 +83,7 @@ func CalculateMovement(_delta):
 func takeDamage(damage):
 	if not isDead:
 		healthPoints -= damage;
+		$HealthLabel.text = String(healthPoints);
 		currentColor *= .5
 		$AnimatedSprite.modulate = currentColor;	
 		if healthPoints <= 0:
