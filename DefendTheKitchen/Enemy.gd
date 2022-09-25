@@ -71,7 +71,6 @@ func _physics_process(_delta):
 func CalculateMovement(_delta):
 	if player != null and canMove:
 		# move towards the player
-		
 		if (targettedFood != null):
 			navigationAgent.set_target_location(targettedFood.global_position);
 		else:

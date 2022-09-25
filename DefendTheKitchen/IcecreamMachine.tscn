@@ -41,6 +41,7 @@ frames = SubResource( 1 )
 flip_v = true
 
 [node name="IcecreamTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="ProgressBar" type="TextureProgress" parent="."]

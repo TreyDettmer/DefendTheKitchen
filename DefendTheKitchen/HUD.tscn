@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Fonts/Montreal-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://HUD.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Art/inv_hotbar.png" type="Texture" id=6]
 [ext_resource path="res://Art/health_sprite.png" type="Texture" id=7]
 [ext_resource path="res://Fonts/Montreal-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Art/rice_bowl.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -55,6 +56,11 @@ texture = ExtResource( 4 )
 position = Vector2( -418, -29 )
 texture = ExtResource( 5 )
 
+[node name="RiceIcon" type="Sprite" parent="Inventory"]
+position = Vector2( -144, -30 )
+scale = Vector2( 0.218345, 0.2575 )
+texture = ExtResource( 9 )
+
 [node name="PizzaLabel" type="Label" parent="Inventory"]
 margin_left = -448.0
 margin_top = 2.0
@@ -68,6 +74,15 @@ align = 1
 margin_left = -304.0
 margin_top = 2.0
 margin_right = -264.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "0"
+align = 1
+
+[node name="RiceLabel" type="Label" parent="Inventory"]
+margin_left = -176.0
+margin_top = 2.0
+margin_right = -136.0
 margin_bottom = 16.0
 rect_scale = Vector2( 1.5, 1.5 )
 text = "0"
@@ -90,6 +105,16 @@ margin_right = -313.0
 margin_bottom = -12.0
 rect_scale = Vector2( 1.2, 1.00505 )
 text = "2:
+"
+align = 1
+
+[node name="HotKey 3 Label" type="Label" parent="Inventory"]
+margin_left = -219.0
+margin_top = -44.0
+margin_right = -179.0
+margin_bottom = -13.0
+rect_scale = Vector2( 1.2, 1.00505 )
+text = "3:
 "
 align = 1
 

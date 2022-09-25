@@ -20,7 +20,7 @@ func HitEnemy(enemy):
 	$AnimatedSprite.frame = (8 - health);
 	
 	if (health <= 0):
-		destroy();
+		call_deferred("destroy");
 
 
 func _on_MobLure_body_entered(body):
