@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-signal update_inventory
-signal update_health
-signal update_gold
+signal update_inventory;
+signal update_health;
+signal update_gold(gold);
 
 export var speed = 400.0;
 var screen_size = Vector2.ZERO;
@@ -12,13 +12,15 @@ export var healthPoints = 2;
 var isDead = false;
 export var gold = 0;
 var currentEquip = 1;
+var levelNode;
+var canThrowFood = true;
 
 var foods = {
 	"pizza" : preload("res://Pizza.tscn"),
 	"icecream" : preload("res://Icecream.tscn")
 }
 var food_count = {
-	"pizza" : 0,
+	"pizza" : 1,
 	"icecream" : 0
 }
 
@@ -47,31 +49,37 @@ func die():
 
 func _ready():
 	screen_size = get_viewport_rect().size;
+	levelNode = get_parent();
 
 
 func _process(_delta):
 	if isDead:
 		return;
 	GetInput();
-	
-	#Prevents player from clipping into inventory
-	position.y = clamp(position.y, 0, 622)
-	
-	#Keeps inventory positon independent of player movement
-	#$Inventory.global_position.x = 512
-	#$Inventory.global_position.y = 715
 
 func GetInput():
 	direction = Vector2.ZERO;
+	if levelNode.isBetweenWaves:
+		$AnimatedSprite.play("default");
+		return;
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1;
+		$AnimatedSprite.play("walk");
 	if Input.is_action_pressed("move_left"):
 		direction.x -= 1;
+		$AnimatedSprite.play("walk");
 	if Input.is_action_pressed("move_down"):
 		direction.y += 1;
+		$AnimatedSprite.play("walk");
 	if Input.is_action_pressed("move_up"):
 		direction.y -= 1;
+		$AnimatedSprite.play("walk");
+	# I'm sorry, I know this sucks :(
+	if (!Input.is_action_pressed("move_up") and !Input.is_action_pressed("move_down")
+	and !Input.is_action_pressed("move_left") and !Input.is_action_pressed("move_right")):
+		$AnimatedSprite.play("default");
 	aimDirection = (get_global_mouse_position() - global_position).normalized();
+	$AnimatedSprite.rotation = aimDirection.angle() + 90;
 	if Input.is_action_just_pressed("mouse_click"):
 		ThrowFood();
 	if Input.is_action_just_pressed("pause"):
@@ -91,6 +99,8 @@ func _physics_process(_delta):
 	position.y = clamp(position.y,0,screen_size.y);
 
 func ThrowFood():
+	if !canThrowFood:
+		return;
 	
 	#match statement with what is equipted currently to switch between things
 	match currentEquip:

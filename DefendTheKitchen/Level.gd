@@ -28,6 +28,8 @@ var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
 export var waveGold = 100;
 
+var isBetweenWaves = false;
+
 export (String) var level_name = "level"
 
 var level_parameters := {
@@ -124,11 +126,14 @@ func enemy_died(_enemy):
 		
 func complete_wave():
 	print("Completed wave");
-	
+	isBetweenWaves = true;
 	$Player.setGold($Player.getGold() + waveGold) #Adding reward gold to players inventory
 	print("Added " + str(waveGold) + " Gold")
 	
-	if currentWave - 1 > waves.size():
+	# remove all food that is on the floor
+	get_tree().call_group("food","queue_free");
+	
+	if currentWave >= waves.size():
 		print("You won!");
 	else:	
 		#start the timer for waiting inbetween waves
@@ -138,4 +143,15 @@ func complete_wave():
 func _on_HUD_nextWave():
 	currentWave += 1;
 	emit_signal("start_wave", currentWave)
+	isBetweenWaves = false;
 	spawn_wave();
+
+
+func _on_KitchenArea2D_body_entered(body):
+	if body.name == "Player":
+		$Player.canThrowFood = true;
+
+
+func _on_KitchenArea2D_body_exited(body):
+	if body.name == "Player":
+		$Player.canThrowFood = false;
