@@ -159,3 +159,4 @@ func _on_KitchenArea2D_body_exited(body):
 func spawnLoot(_enemy):
 	var loot = moneyBagLoot.instance()
 	loot.setPosition(_enemy.position)
+	call_deferred("add_child",loot) #create a loot child on the node

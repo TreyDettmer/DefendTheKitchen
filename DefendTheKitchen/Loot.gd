@@ -28,11 +28,9 @@ func setLootType(type):
 			lootType["item"] = true
 
 func HitPlayer(player):
-	match lootType:
-		"gold":
-			player.setGold(player.getGold() + lootValue)
-			
-	#emit_signal("collectLoot", lootType, lootValue)
+	if lootType["gold"]:
+		player.setGold(player.getGold() + lootValue)
+		
 	destroy();
 
 func _init():
