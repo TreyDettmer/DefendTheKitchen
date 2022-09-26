@@ -132,7 +132,6 @@ position = Vector2( 1824, 920 )
 
 [connection signal="start_wave" from="." to="HUD" method="_on_Level1_start_wave"]
 [connection signal="wave_finished" from="." to="HUD" method="_on_Level1_wave_finished"]
-[connection signal="update_gold" from="Player" to="HUD" method="_on_Player_update_gold"]
 [connection signal="pizza_added" from="Stove" to="Player" method="_on_Stove_pizza_added"]
 [connection signal="icecream_added" from="IcecreamMachine" to="Player" method="_on_IcecreamMachine_icecream_added"]
 [connection signal="nextWave" from="HUD" to="." method="_on_HUD_nextWave"]
