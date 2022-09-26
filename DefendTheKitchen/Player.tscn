@@ -47,6 +47,6 @@ animation = "walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ApplianceDetectionArea"]
 shape = SubResource( 3 )
 
-[connection signal="body_entered" from="ApplianceDetectionArea" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_area_entered"]
 [connection signal="body_entered" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_body_entered"]
 [connection signal="body_exited" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_body_exited"]

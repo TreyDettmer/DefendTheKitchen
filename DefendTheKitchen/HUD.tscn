@@ -34,18 +34,6 @@ custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Next Wave"
 
-[node name="UpgradesButton" type="MenuButton" parent="."]
-modulate = Color( 0, 1, 0.0156863, 1 )
-margin_left = 3.0
-margin_top = 124.0
-margin_right = 185.0
-margin_bottom = 212.0
-custom_fonts/font = ExtResource( 8 )
-text = "Upgrades"
-flat = false
-items = [ "Increase Speed", null, 0, false, false, 0, 0, null, "", true, "Upgrade Pizza Oven", null, 0, false, false, 1, 0, null, "", true ]
-script = ExtResource( 9 )
-
 [node name="WaveNumber" type="Label" parent="."]
 margin_left = 823.0
 margin_top = 36.0
@@ -174,4 +162,3 @@ align = 1
 valign = 1
 
 [connection signal="pressed" from="NextWaveButton" to="." method="_on_NextWaveButton_pressed"]
-[connection signal="pressed" from="UpgradesButton" to="UpgradesButton" method="_on_UpgradesButton_pressed"]

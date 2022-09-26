@@ -193,7 +193,7 @@ func _on_IcecreamMachine_icecream_added():
 	
 
 #controls interactions between the player and loot
-func _on_Area2D_area_entered(area):
+func _on_ApplianceDetectionArea_area_entered(area):
 	if area.get_parent().is_in_group("loot") and area.name == "LootArea2D":
 		area.get_parent().HitPlayer(self);
 
