@@ -16,7 +16,6 @@ func _physics_process(_delta):
 
 func HitEnemy(enemy):
 	if previouslyHitEnemy == null:
-		enemy.activateStatusEffect("frost");
 		enemy.takeDamage(1.0);
 		previouslyHitEnemy = enemy;
 	destroy();

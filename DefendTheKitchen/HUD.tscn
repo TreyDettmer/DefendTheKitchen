@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Fonts/Montreal-Bold.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://HUD.gd" type="Script" id=2]
@@ -7,8 +7,8 @@
 [ext_resource path="res://Art/pizza-64x64.png" type="Texture" id=5]
 [ext_resource path="res://Art/inv_hotbar.png" type="Texture" id=6]
 [ext_resource path="res://Art/health_sprite.png" type="Texture" id=7]
-[ext_resource path="res://Fonts/Montreal.tres" type="DynamicFont" id=8]
-[ext_resource path="res://UpgradesButton.gd" type="Script" id=9]
+[ext_resource path="res://Fonts/Montreal-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Art/rice_bowl.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 24
@@ -17,6 +17,10 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 size = 28
 font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 60
+font_data = ExtResource( 8 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -57,7 +61,7 @@ script = ExtResource( 3 )
 [node name="Hotbar" type="Sprite" parent="Inventory"]
 texture = ExtResource( 6 )
 
-[node name="Icecream" type="Sprite" parent="Inventory"]
+[node name="IcecreamIcon" type="Sprite" parent="Inventory"]
 position = Vector2( -274, -28.9999 )
 scale = Vector2( 0.794445, 0.675 )
 texture = ExtResource( 4 )
@@ -66,20 +70,35 @@ texture = ExtResource( 4 )
 position = Vector2( -418, -29 )
 texture = ExtResource( 5 )
 
+[node name="RiceIcon" type="Sprite" parent="Inventory"]
+position = Vector2( -144, -30 )
+scale = Vector2( 0.218345, 0.2575 )
+texture = ExtResource( 9 )
+
 [node name="PizzaLabel" type="Label" parent="Inventory"]
-margin_left = -443.0
-margin_right = -403.0
-margin_bottom = 14.0
-rect_scale = Vector2( 1.2, 1.00505 )
+margin_left = -448.0
+margin_top = 2.0
+margin_right = -408.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1.5, 1.5 )
 text = "0"
 align = 1
 
 [node name="IcecreamLabel" type="Label" parent="Inventory"]
-margin_left = -298.0
-margin_top = -1.0
-margin_right = -258.0
-margin_bottom = 13.0
-rect_scale = Vector2( 1.2, 1.00505 )
+margin_left = -304.0
+margin_top = 2.0
+margin_right = -264.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "0"
+align = 1
+
+[node name="RiceLabel" type="Label" parent="Inventory"]
+margin_left = -176.0
+margin_top = 2.0
+margin_right = -136.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1.5, 1.5 )
 text = "0"
 align = 1
 
@@ -103,6 +122,16 @@ text = "2:
 "
 align = 1
 
+[node name="HotKey 3 Label" type="Label" parent="Inventory"]
+margin_left = -219.0
+margin_top = -44.0
+margin_right = -179.0
+margin_bottom = -13.0
+rect_scale = Vector2( 1.2, 1.00505 )
+text = "3:
+"
+align = 1
+
 [node name="GoldLabel" type="Label" parent="Inventory"]
 margin_left = 328.0
 margin_top = -37.0
@@ -122,17 +151,27 @@ text = "Gold:"
 align = 1
 
 [node name="Instructions" type="Label" parent="Inventory"]
-margin_left = -509.0
-margin_top = 1.0
-margin_right = -469.0
-margin_bottom = 32.0
-rect_scale = Vector2( 1.2, 1.00505 )
-text = "Stock:
-"
+margin_left = -512.0
+margin_top = 2.0
+margin_right = -472.0
+margin_bottom = 18.0
+rect_scale = Vector2( 1.5, 1.5 )
+text = "Stock:"
 align = 1
+valign = 1
 
 [node name="HealthBar" type="Sprite" parent="Inventory"]
 texture = ExtResource( 7 )
+
+[node name="EquipHighlight" type="Label" parent="Inventory"]
+margin_left = -304.0
+margin_top = -54.0
+margin_right = -234.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 1, 0.937255, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+align = 1
+valign = 1
 
 [connection signal="pressed" from="NextWaveButton" to="." method="_on_NextWaveButton_pressed"]
 [connection signal="pressed" from="UpgradesButton" to="UpgradesButton" method="_on_UpgradesButton_pressed"]

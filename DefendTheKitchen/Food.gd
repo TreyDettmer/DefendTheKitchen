@@ -4,6 +4,7 @@ var direction = Vector2.ZERO;
 export var speed = 1000.0;
 export var rotationSpeed = 2.0;
 var screen_size = Vector2.ZERO;
+var previouslyHitEnemy = null;
 
 
 func _ready():

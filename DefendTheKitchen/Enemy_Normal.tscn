@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Enemy_Normal.gd" type="Script" id=2]
@@ -6,16 +6,13 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 21.0238
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 21.0
-
 [node name="Enemy_Normal" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 canMoveOnAttack = true
 attackCooldown = 0.6
 attackWindup = 0.4
 attackDistance = 50.0
-healthPoints = 2
+healthPoints = 3
 
 [node name="NavigationCollider" parent="." index="1"]
 shape = SubResource( 1 )
@@ -23,5 +20,9 @@ shape = SubResource( 1 )
 [node name="NavigationAgent2D" parent="." index="2"]
 navigation_layers = 2
 
-[node name="CollisionShape2D" parent="Area2D" index="0"]
-shape = SubResource( 2 )
+[node name="HealthLabel" parent="." index="7"]
+margin_left = -20.0
+margin_top = -37.0
+margin_right = 20.0
+margin_bottom = -23.0
+text = "0"

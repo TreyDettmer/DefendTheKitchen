@@ -24,7 +24,7 @@ var fastEnemyPrefab = preload("res://Enemy_Fast.tscn");
 var bigEnemyPrefab = preload("res://Enemy_Big.tscn");
 var possibleSpawnPoints = [];
 
-var waves = [Wave.new(1,1,1), Wave.new(4,1,1)]
+var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,3,2)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
 export var waveGold = 100;

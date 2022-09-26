@@ -8,7 +8,7 @@ radius = 16.0
 
 [node name="Enemy_Fast" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-maxSpeed = 110.0
+maxSpeed = 120.0
 canMoveOnAttack = true
 attackCooldown = 0.6
 attackWindup = 0.4
@@ -20,3 +20,7 @@ shape = SubResource( 1 )
 
 [node name="NavigationAgent2D" parent="." index="2"]
 navigation_layers = 2
+
+[node name="HealthLabel" parent="." index="7"]
+margin_left = -20.0
+margin_right = 20.0
