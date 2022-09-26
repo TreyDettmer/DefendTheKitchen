@@ -4,7 +4,6 @@ extends CanvasLayer
 signal level_changed(level_name)
 signal wave_finished
 signal start_wave(currentWave)
-signal spawn_loot()
 
 class Wave:
 	var normalEnemyCount: int;
@@ -43,7 +42,6 @@ var level_parameters := {
 func load_level_parameters(new_level_parameters: Dictionary):
 	level_parameters = new_level_parameters
 	$Player.nuxMode(level_parameters.nuxMode)
-	#$GoldLabel.text = "Gold: " + str(level_parameters.gold)
 	
 	start_level();
 	
@@ -63,6 +61,7 @@ func _on_ChangeScene() -> void:
 	
 	
 func spawn_wave():
+	global.waveNum+= 1 #for score calc
 	# get the current wave
 	var wave = waves[currentWave - 1];
 	
@@ -135,6 +134,9 @@ func complete_wave():
 	
 	if currentWave >= waves.size():
 		print("You won!");
+		global.gameOverWin = true
+		global.setScore()
+		get_tree().change_scene("res://Main.tscn") #restart the game from main menu
 	else:	
 		#start the timer for waiting inbetween waves
 		emit_signal("wave_finished")

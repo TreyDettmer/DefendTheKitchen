@@ -45,6 +45,10 @@ func die():
 		hide();
 		get_tree().call_group("enemies","disable");
 		print("Player died")
+		#Change to game over scene
+		global.setScore()
+		global.gameOver = true
+		get_tree().change_scene("res://Main.tscn")
 		#queue_free();
 
 func _ready():
@@ -145,6 +149,7 @@ func getGold():
 #sets the player's gold
 func setGold(incomingGold):
 	gold = incomingGold
+	global.gold += incomingGold #keeps track of gold obtained throughout time
 	emit_signal("update_gold", gold)
 
 func _on_Stove_pizza_added():
