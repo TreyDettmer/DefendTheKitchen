@@ -140,7 +140,7 @@ func update_food(foodStr):
 #turns on nux mode for testing, makes the player ESSENTIALLY unkillable
 func nuxMode(nuxToggle: bool):
 	if nuxToggle:
-		healthPoints = 1000000 #essentially unkillable
+		healthPoints = 1000000 # unkillable almost
 
 #returns the player's current gold amount
 func getGold():
