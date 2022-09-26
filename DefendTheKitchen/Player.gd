@@ -196,9 +196,10 @@ func _on_IcecreamMachine_icecream_added():
 func _on_Area2D_area_entered(area):
 	if area.get_parent().is_in_group("loot") and area.name == "LootArea2D":
 		area.get_parent().HitPlayer(self);
+
+
 func _on_RiceCooker_rice_added():
 	update_food("rice",5);
-
 
 
 func _on_ApplianceDetectionArea_body_entered(body):
