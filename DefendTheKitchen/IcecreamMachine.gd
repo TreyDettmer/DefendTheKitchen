@@ -5,12 +5,17 @@ export(PackedScene) var object_scene: PackedScene = null
 var is_player_inside: bool = false
 var is_cooking: bool = false
 var done_cooking = false
+
+export var upgradeCost = 10;
+
 signal icecream_added
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$ProgressBar.visible = false;
 	$FoodSprite.visible = false;
+	
+	add_to_group("appliances");
 
 
 func _input(event: InputEvent):
@@ -55,3 +60,11 @@ func _on_IcecreamTimer_timeout():
 	$ProgressBar.visible = false;
 	$FoodSprite.visible = true;
 	print("Done cooking!");
+	
+# Called whenever the player presses the "Upgrade" button on the appliance.
+# This function is dynamically connected to the pressed() signal on the button	
+func _upgrade():
+	self.upgradeCost += 10;
+	emit_signal("update_upgrade", upgradeCost);
+	
+	$IcecreamTimer.wait_time = 1;

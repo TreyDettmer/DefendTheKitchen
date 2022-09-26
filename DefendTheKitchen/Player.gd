@@ -15,6 +15,10 @@ var currentEquip = 1;
 var levelNode;
 var canThrowFood = true;
 
+# Stuff for the upgrade buttons that appear over appliances
+const upgradeButtonResource = preload("res://UpgradeButton.tscn");
+var loadedUpgradeButtons = {};
+
 var foods = {
 	"pizza" : preload("res://Pizza.tscn"),
 	"icecream" : preload("res://Icecream.tscn"),
@@ -184,3 +188,38 @@ func _on_IcecreamMachine_icecream_added():
 	
 func _on_RiceCooker_rice_added():
 	update_food("rice",5);
+
+
+
+func _on_ApplianceDetectionArea_body_entered(body):
+	var body_groups = body.get_groups();
+	
+	# Create a new UpgradeButton instance and attach it to the appliance
+	if body_groups.has("appliances"):
+		
+		var upgradeButton = upgradeButtonResource.instance();
+		var button = upgradeButton.get_node("Button");
+		var text = upgradeButton.get_node("RichTextLabel");
+		get_parent().add_child(upgradeButton);
+		
+		upgradeButton.global_position = body.global_position;
+		upgradeButton.player = self;
+		upgradeButton.appliance = body;
+		
+		upgradeButton.connect("playerPressedUpgrade", body, "_upgrade");
+		body.connect("update_upgrade", upgradeButton, "updateButtonText");
+		
+		upgradeButton.updateButtonText(body.upgradeCost);
+		
+		# Add this upgrade button to the list so it can be unloaded
+		# once the player leaves the area
+		loadedUpgradeButtons[body] = upgradeButton;
+		
+		
+
+
+# Handles unloading of upgrade buttons from appliances
+func _on_ApplianceDetectionArea_body_exited(body):
+	
+	if loadedUpgradeButtons.has(body):
+		loadedUpgradeButtons[body].queue_free();
