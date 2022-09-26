@@ -59,19 +59,18 @@ func set_gold(new_gold_amount: int):
 func _on_ChangeScene() -> void:
 	emit_signal("level_changed", level_name)
 	
-	
+#This func spawns all the waves for the game
+#Runs through the arrays of different types of enemies for that wave
+#and spawns them in pseudorandomly
 func spawn_wave():
 	global.waveNum+= 1 #for score calc
 	# get the current wave
 	var wave = waves[currentWave - 1];
-	
 	# random starting spawn point
 	var spawnPointIndex = rng.randi_range(0,possibleSpawnPoints.size());
-	
 	# spawn the base enemies
 	for _n in range(wave.normalEnemyCount):
 		var enemy = normalEnemyPrefab.instance();
-		
 		
 		enemy.position = possibleSpawnPoints[spawnPointIndex % possibleSpawnPoints.size()].position;
 		
@@ -80,7 +79,6 @@ func spawn_wave():
 		$Navigation2D_Normal.call_deferred("add_child",enemy);
 		aliveEnemies += 1;
 		spawnPointIndex += 1;
-		
 		# slight delay between enemy spawns
 		yield(get_tree().create_timer(0.5),"timeout");
 		

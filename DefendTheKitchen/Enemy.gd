@@ -55,7 +55,9 @@ func _process(delta):
 
 func _test():
 	print("test");
-		
+	
+#This func handles what happens every frame for the enemy
+#determines if the enemy is close enough to the player to attack
 func _physics_process(_delta):
 	if isDead:
 		return;
@@ -68,8 +70,10 @@ func _physics_process(_delta):
 		var raycastResult = space_state.intersect_ray(global_position,player.global_position,[self],0b0001)
 		if raycastResult:
 			StartAttack();
-		
 
+#This func calculates the movement of the enemies
+#Makes them move towards the player if there isn't any food present for them
+#to be lured towards
 func CalculateMovement(_delta):
 	if player != null and canMove:
 		# move towards the player
@@ -80,7 +84,9 @@ func CalculateMovement(_delta):
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
-		
+
+#This function makes the enemy take damage
+#modifies the sprite accordingly
 func takeDamage(damage):
 	if not isDead:
 		healthPoints -= damage;
@@ -90,6 +96,7 @@ func takeDamage(damage):
 		if healthPoints <= 0:
 			die();
 
+#This function kills the enemy
 func die():
 	if not isDead:
 		isDead = true;
