@@ -6,11 +6,16 @@ var is_player_inside: bool = false
 var is_cooking: bool = false
 var done_cooking = false
 signal pizza_added
+signal update_upgrade;
+
+export var upgradeCost = 10;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$ProgressBar.visible = false;
 	$FoodSprite.visible = false;
+	
+	add_to_group("appliances");
 
 func _input(event: InputEvent):
 	# don't allow interaction during downtime
@@ -56,3 +61,12 @@ func _on_Area2D_body_entered(_body):
 func _on_Area2D_body_exited(_body):
 	if _body.is_in_group("players"):
 		is_player_inside = false
+	
+# Called whenever the player presses the "Upgrade" button on the appliance.
+# This function is dynamically connected to the pressed() signal on the button	
+func _upgrade():
+	self.upgradeCost += 10;
+	emit_signal("update_upgrade", upgradeCost);
+	
+	# TODO This is just an upgrade example
+	$StoveTimer.wait_time = 1;
