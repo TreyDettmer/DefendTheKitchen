@@ -12,7 +12,7 @@ canMoveOnAttack = true
 attackCooldown = 0.6
 attackWindup = 0.4
 attackDistance = 50.0
-healthPoints = 2
+healthPoints = 3
 
 [node name="NavigationCollider" parent="." index="1"]
 shape = SubResource( 1 )

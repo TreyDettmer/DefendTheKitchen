@@ -39,6 +39,7 @@ frames = SubResource( 1 )
 flip_v = true
 
 [node name="StoveTimer" type="Timer" parent="."]
+wait_time = 10.0
 one_shot = true
 
 [node name="ProgressBar" type="TextureProgress" parent="."]

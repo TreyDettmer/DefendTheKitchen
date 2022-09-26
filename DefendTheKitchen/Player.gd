@@ -17,11 +17,13 @@ var canThrowFood = true;
 
 var foods = {
 	"pizza" : preload("res://Pizza.tscn"),
-	"icecream" : preload("res://Icecream.tscn")
+	"icecream" : preload("res://Icecream.tscn"),
+	"rice" : preload("res://Rice.tscn")
 }
 var food_count = {
 	"pizza" : 0,
-	"icecream" : 0
+	"icecream" : 0,
+	"rice" : 0,
 }
 
 func takeDamage(damage):
@@ -92,6 +94,10 @@ func GetInput():
 		if food_count.values()[1] != 0:
 			currentEquip = 2; #icecream
 			emit_signal("update_inventory", food_count,currentEquip)
+	if Input.is_action_just_pressed("Equip3"):
+		if food_count.values()[2] != 0:
+			currentEquip = 3; #rice
+			emit_signal("update_inventory", food_count,currentEquip)
 	
 	
 func hasFood():
@@ -134,13 +140,23 @@ func ThrowFood():
 				food_count["icecream"] -= 1
 				
 				emit_signal("update_inventory", food_count,currentEquip)
+		3:
+			if food_count["rice"] > 0:
+				var b = foods["rice"].instance();
+				b.direction = aimDirection;
+				owner.add_child(b);
+				# spawn food in front of player
+				b.global_position = global_position + aimDirection * 30.0;
+				food_count["rice"] -= 1
+				
+				emit_signal("update_inventory", food_count,currentEquip)
 
 
-func update_food(foodStr):
+func update_food(foodStr, amount = 1):
 	if !hasFood():
 		currentEquip = food_count.keys().find(foodStr) + 1;
 		print("Current equip set to " + String(currentEquip))
-	food_count[foodStr] += 1
+	food_count[foodStr] += amount;
 	print("You have " + str(food_count[foodStr]) + " " + foodStr)
 	
 	emit_signal("update_inventory", food_count,currentEquip)
@@ -165,3 +181,6 @@ func _on_Stove_pizza_added():
 
 func _on_IcecreamMachine_icecream_added():
 	update_food("icecream")
+	
+func _on_RiceCooker_rice_added():
+	update_food("rice",5);

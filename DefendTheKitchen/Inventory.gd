@@ -11,14 +11,19 @@ func _on_Player_update_inventory(food_count,_currentEquip):
 		highlight_icon($PizzaIcon);
 	if $IcecreamLabel.text < str(food_count["icecream"]):
 		highlight_icon($IcecreamIcon);
+	if $RiceLabel.text < str(food_count["rice"]):
+		highlight_icon($RiceIcon);
 	$PizzaLabel.text = str(food_count["pizza"])
 	$IcecreamLabel.text = str(food_count["icecream"])
+	$RiceLabel.text = str(food_count["rice"])
 	if currentEquip != _currentEquip:
 		currentEquip = _currentEquip;
 		if currentEquip == 1:
 			switched_currentEquip($PizzaIcon)
 		elif currentEquip == 2:
 			switched_currentEquip($IcecreamIcon)
+		elif currentEquip == 3:
+			switched_currentEquip($RiceIcon)
 
 func _on_Player_update_gold(gold_count):
 	$GoldLabel.text = str(gold_count)
@@ -38,6 +43,8 @@ func switched_currentEquip(icon):
 		$EquipHighlight.rect_global_position = $PizzaIcon.global_position - Vector2(35,0);
 	elif icon == $IcecreamIcon:
 		$EquipHighlight.rect_global_position = $IcecreamIcon.global_position - Vector2(35,0)
+	elif icon == $RiceIcon:
+		$EquipHighlight.rect_global_position = $RiceIcon.global_position - Vector2(35,0)
 			
 func highlight_icon(icon):
 	for i in 3:

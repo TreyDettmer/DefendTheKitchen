@@ -23,7 +23,7 @@ var fastEnemyPrefab = preload("res://Enemy_Fast.tscn");
 var bigEnemyPrefab = preload("res://Enemy_Big.tscn");
 var possibleSpawnPoints = [];
 
-var waves = [Wave.new(1,1,1), Wave.new(4,1,1)]
+var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,3,2)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
 export var waveGold = 100;
@@ -41,7 +41,6 @@ var level_parameters := {
 func load_level_parameters(new_level_parameters: Dictionary):
 	level_parameters = new_level_parameters
 	$Player.nuxMode(level_parameters.nuxMode)
-	#$GoldLabel.text = "Gold: " + str(level_parameters.gold)
 	
 	start_level();
 	
