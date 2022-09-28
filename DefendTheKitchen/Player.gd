@@ -14,6 +14,7 @@ export var gold = 0;
 var currentEquip = 1;
 var levelNode;
 var canThrowFood = true;
+var mouseClickEnabled = true;
 
 # Stuff for the upgrade buttons that appear over appliances
 const upgradeButtonResource = preload("res://UpgradeButton.tscn");
@@ -90,8 +91,16 @@ func GetInput():
 		$AnimatedSprite.play("default");
 	aimDirection = (get_global_mouse_position() - global_position).normalized();
 	$AnimatedSprite.rotation = aimDirection.angle() + 90;
+	
 	if Input.is_action_just_pressed("mouse_click"):
-		ThrowFood();
+		
+		# mouseClickEnabled is set to false when the player clicks the
+		# upgrade button (see UpgradeButton.gd). This prevents the player from 
+		# shooting food when interacting with gui elements.
+		if mouseClickEnabled:
+			ThrowFood();
+		else:
+			mouseClickEnabled = true;
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused;
 	if Input.is_action_just_pressed("Equip1"):
