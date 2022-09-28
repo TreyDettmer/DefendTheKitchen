@@ -11,13 +11,29 @@ var level_parameters := {
 }
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if global.gameOver: #lose case
+		$GameTitle.hide()
+		$GameOver.show()
+		$GameOverWin.hide()
+		$StartButton.text = "Restart"
+		$Score.text = "Score: " + str(global.score) 
+	elif global.gameOverWin: #win case, player beat all levels
+		$GameTitle.hide()
+		$GameOver.hide()
+		$GameOverWin.show()
+		$StartButton.text = "Restart"
+		$Score.text = "Score: " + str(global.score) 
+	else: #default first case
+		$GameTitle.show()
+		$GameOver.hide()
+		$GameOverWin.hide()
+		$StartButton.text = "Start" 
+		$Score.hide()
 
 func _on_StartButton_pressed():
 	yield(get_tree().create_timer(1), "timeout")
-	#get_tree().change_scene("res://Main.tscn")
+	global.resetVars()
 	emit_signal("level_changed", level_num)
-	#$TitleScreen.hide()
 
 #function to tell the main game if nux mode should be on or off
 func _on_ToggleNuxMode_toggled(button_pressed):
@@ -25,3 +41,7 @@ func _on_ToggleNuxMode_toggled(button_pressed):
 
 func set_nuxMode(nux: bool):
 	level_parameters.nuxMode = nux
+	global.nuxMode = nux
+
+func _on_QuitButton_pressed():
+	get_tree().quit()

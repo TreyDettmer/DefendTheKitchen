@@ -18,6 +18,7 @@ class Wave:
 
 var currentWave = 1;
 
+var moneyBagLoot = preload("res://Loot.tscn");
 var normalEnemyPrefab = preload("res://Enemy_Normal.tscn");
 var fastEnemyPrefab = preload("res://Enemy_Fast.tscn");
 var bigEnemyPrefab = preload("res://Enemy_Big.tscn");
@@ -53,26 +54,23 @@ func set_gold(new_gold_amount: int):
 	level_parameters.gold = new_gold_amount
 	#$GoldLabel.text = "Gold: " + str(level_parameters.gold)
 
-
 #functionality for changing scenes from a button
 #make all levels when complete set this off
 func _on_ChangeScene() -> void:
-	#gives 100 gold at the end of each level
-	set_gold(level_parameters.gold + 100)
 	emit_signal("level_changed", level_name)
 	
-	
+#This func spawns all the waves for the game
+#Runs through the arrays of different types of enemies for that wave
+#and spawns them in pseudorandomly
 func spawn_wave():
+	global.waveNum+= 1 #for score calc
 	# get the current wave
 	var wave = waves[currentWave - 1];
-	
 	# random starting spawn point
 	var spawnPointIndex = rng.randi_range(0,possibleSpawnPoints.size());
-	
 	# spawn the base enemies
 	for _n in range(wave.normalEnemyCount):
 		var enemy = normalEnemyPrefab.instance();
-		
 		
 		enemy.position = possibleSpawnPoints[spawnPointIndex % possibleSpawnPoints.size()].position;
 		
@@ -81,7 +79,6 @@ func spawn_wave():
 		$Navigation2D_Normal.call_deferred("add_child",enemy);
 		aliveEnemies += 1;
 		spawnPointIndex += 1;
-		
 		# slight delay between enemy spawns
 		yield(get_tree().create_timer(0.5),"timeout");
 		
@@ -118,6 +115,7 @@ func spawn_wave():
 		yield(get_tree().create_timer(0.5),"timeout");
 
 func enemy_died(_enemy):
+	spawnLoot(_enemy)
 	aliveEnemies -= 1;
 	print("Enemy Died!!!");
 	if aliveEnemies <= 0:
@@ -134,6 +132,9 @@ func complete_wave():
 	
 	if currentWave >= waves.size():
 		print("You won!");
+		global.gameOverWin = true
+		global.setScore()
+		get_tree().change_scene("res://Main.tscn") #restart the game from main menu
 	else:	
 		#start the timer for waiting inbetween waves
 		emit_signal("wave_finished")
@@ -154,3 +155,8 @@ func _on_KitchenArea2D_body_entered(body):
 func _on_KitchenArea2D_body_exited(body):
 	if body.name == "Player":
 		$Player.canThrowFood = false;
+		
+func spawnLoot(_enemy):
+	var loot = moneyBagLoot.instance()
+	loot.setPosition(_enemy.position)
+	call_deferred("add_child",loot) #create a loot child on the node

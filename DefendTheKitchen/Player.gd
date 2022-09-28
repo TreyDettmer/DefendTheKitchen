@@ -51,6 +51,10 @@ func die():
 		hide();
 		get_tree().call_group("enemies","disable");
 		print("Player died")
+		#Change to game over scene
+		global.setScore()
+		global.gameOver = true
+		get_tree().change_scene("res://Main.tscn")
 		#queue_free();
 
 func _ready():
@@ -169,7 +173,7 @@ func update_food(foodStr, amount = 1):
 #turns on nux mode for testing, makes the player ESSENTIALLY unkillable
 func nuxMode(nuxToggle: bool):
 	if nuxToggle:
-		healthPoints = 1000000 #essentially unkillable
+		healthPoints = 1000000 # unkillable almost
 
 #returns the player's current gold amount
 func getGold():
@@ -178,6 +182,7 @@ func getGold():
 #sets the player's gold
 func setGold(incomingGold):
 	gold = incomingGold
+	global.gold += incomingGold #keeps track of gold obtained throughout time
 	emit_signal("update_gold", gold)
 
 func _on_Stove_pizza_added():
@@ -186,9 +191,15 @@ func _on_Stove_pizza_added():
 func _on_IcecreamMachine_icecream_added():
 	update_food("icecream")
 	
+
+#controls interactions between the player and loot
+func _on_ApplianceDetectionArea_area_entered(area):
+	if area.get_parent().is_in_group("loot") and area.name == "LootArea2D":
+		area.get_parent().HitPlayer(self);
+
+
 func _on_RiceCooker_rice_added():
 	update_food("rice",5);
-
 
 
 func _on_ApplianceDetectionArea_body_entered(body):

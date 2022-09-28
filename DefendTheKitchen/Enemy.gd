@@ -24,12 +24,14 @@ export var healthPoints = 1;
 export var currentColor = Color(1,1,1);
 #effects from items that impact the enemies
 export var statusEffect = {
-	"frost" : 40 #lowers speed by 40
+	"frost" : 50 #lowers speed by 50
 }
 var normalEnemyPrefab = load("res://Enemy_Normal.tscn");
 var bigEnemyPrefab = load("res://Enemy_Big.tscn");
 var fastEnemyPrefab = load("res://Enemy_Fast.tscn");
 var targettedFood = null;
+
+var randRng = RandomNumberGenerator.new()
 
 # thresholds that determine which navigation polygon (tight, normal, or wide) the enemy should be attached to
 var navigationPolygonThresholds = {
@@ -53,7 +55,9 @@ func _process(delta):
 
 func _test():
 	print("test");
-		
+	
+#This func handles what happens every frame for the enemy
+#determines if the enemy is close enough to the player to attack
 func _physics_process(_delta):
 	if isDead:
 		return;
@@ -66,8 +70,10 @@ func _physics_process(_delta):
 		var raycastResult = space_state.intersect_ray(global_position,player.global_position,[self],0b0001)
 		if raycastResult:
 			StartAttack();
-		
 
+#This func calculates the movement of the enemies
+#Makes them move towards the player if there isn't any food present for them
+#to be lured towards
 func CalculateMovement(_delta):
 	if player != null and canMove:
 		# move towards the player
@@ -78,7 +84,9 @@ func CalculateMovement(_delta):
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
-		
+
+#This function makes the enemy take damage
+#modifies the sprite accordingly
 func takeDamage(damage):
 	if not isDead:
 		healthPoints -= damage;
@@ -88,6 +96,7 @@ func takeDamage(damage):
 		if healthPoints <= 0:
 			die();
 
+#This function kills the enemy
 func die():
 	if not isDead:
 		isDead = true;

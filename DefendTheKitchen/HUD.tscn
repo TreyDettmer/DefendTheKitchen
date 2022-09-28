@@ -11,10 +11,11 @@
 [ext_resource path="res://Art/rice_bowl.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=1]
+size = 24
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 24
+size = 28
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -29,6 +30,7 @@ script = ExtResource( 2 )
 [node name="NextWaveButton" type="Button" parent="."]
 margin_right = 183.0
 margin_bottom = 97.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Next Wave"
 
@@ -38,7 +40,7 @@ margin_top = 36.0
 margin_right = 919.0
 margin_bottom = 67.0
 custom_fonts/font = SubResource( 2 )
-text = "Wave: 0"
+text = "Wave: 1"
 
 [node name="Inventory" type="Node2D" parent="."]
 position = Vector2( 520, 998 )
@@ -124,7 +126,7 @@ margin_top = -37.0
 margin_right = 368.0
 margin_bottom = -6.0
 rect_scale = Vector2( 1.2, 1.00505 )
-text = "25"
+text = "0"
 align = 1
 
 [node name="GoldInfo" type="Label" parent="Inventory"]
