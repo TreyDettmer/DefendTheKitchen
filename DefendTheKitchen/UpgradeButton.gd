@@ -23,6 +23,8 @@ func updateButtonText(val):
 # was valid and emits a signal if it was
 func _on_Button_pressed():
 	
+	player.mouseClickEnabled = false;
+	
 	if (player.gold >= appliance.upgradeCost):
 		
 		emit_signal("playerPressedUpgrade");
