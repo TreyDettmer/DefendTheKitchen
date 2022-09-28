@@ -69,9 +69,6 @@ func _process(_delta):
 
 func GetInput():
 	direction = Vector2.ZERO;
-	if levelNode.isBetweenWaves:
-		$AnimatedSprite.play("default");
-		return;
 	if Input.is_action_pressed("move_right"):
 		direction.x += 1;
 		$AnimatedSprite.play("walk");

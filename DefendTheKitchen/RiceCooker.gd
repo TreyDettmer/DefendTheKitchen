@@ -19,6 +19,9 @@ func _ready():
 
 
 func _input(event: InputEvent):
+	# don't allow interaction during downtime
+	if get_parent().isBetweenWaves:
+		return;
 	#start cooking food
 	if event.is_action_pressed("interact") and is_player_inside and not is_cooking:
 		$RiceCookerTimer.start()
