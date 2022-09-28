@@ -22,6 +22,7 @@ export (float) var attackWindup;
 export (float) var attackDistance;
 export var healthPoints = 1;
 export var currentColor = Color(1,1,1);
+var isInsideKitchen = false;
 #effects from items that impact the enemies
 export var statusEffect = {
 	"frost" : 50 #lowers speed by 50
@@ -145,6 +146,9 @@ func _on_AttackCooldownTimer_timeout():
 func _on_Area2D_area_entered(area):
 	if area.get_parent().is_in_group("food") and area.name == "FoodArea2D":
 		area.get_parent().HitEnemy(self);
+	if (area.name == "KitchenArea2D"):
+		isInsideKitchen = true;
+		
 
 func activateStatusEffect(effect):
 	match effect:
@@ -161,3 +165,9 @@ func setFoodLure(food):
 	print("Set target!");
 	if (targettedFood == null):
 		targettedFood = food;
+
+
+func _on_Area2D_area_exited(area):
+	if (area.name == "KitchenArea2D"):
+		isInsideKitchen = false;
+
