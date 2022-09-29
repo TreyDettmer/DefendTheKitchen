@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/LOADINGSCREEN_rio-fresh-119046.mp3-72a14df7beea65d32e3fb0ca386a84e3.mp3str"
+
+[deps]
+
+source_file="res://Music/LOADINGSCREEN_rio-fresh-119046.mp3"
+dest_files=[ "res://.import/LOADINGSCREEN_rio-fresh-119046.mp3-72a14df7beea65d32e3fb0ca386a84e3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

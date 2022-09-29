@@ -32,6 +32,7 @@ func _ready():
 
 func _on_StartButton_pressed():
 	yield(get_tree().create_timer(1), "timeout")
+	#$TitleScreenMusic.stop()
 	global.resetVars()
 	emit_signal("level_changed", level_num)
 

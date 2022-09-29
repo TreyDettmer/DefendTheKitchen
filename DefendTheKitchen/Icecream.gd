@@ -15,6 +15,7 @@ func _physics_process(_delta):
 		break;
 
 func HitEnemy(enemy):
+	$IcecreamSplat.play()
 	if previouslyHitEnemy == null:
 		enemy.activateStatusEffect("frost");
 		enemy.takeDamage(1.0);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Level.gd" type="Script" id=1]
 [ext_resource path="res://TileMap.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Stove.tscn" type="PackedScene" id=5]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://RiceCooker.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Music/MainGame_bella-italia-eigenkomposition-113048.mp3" type="AudioStream" id=8]
 
 [sub_resource type="NavigationPolygon" id=1]
 vertices = PoolVector2Array( 1488, 336, 1488, 496, 1392, 496, 656, 464, 1392, 336, 1488, 656, 1840, 80, 1840, 944, 1488, 752, 1488, 176, 1392, 80, 1392, 176, 1104, 112, 1104, 272, 976, 784, 976, 624, 1392, 752, 1392, 1160, -360, 1160, 816, 784, -344, -168, 496, 464, 944, 272, 656, 304, 1488, 944, 1392, 656, 816, 624, 1392, -168, 1392, -24, 944, 112, 496, 304 )
@@ -129,6 +130,12 @@ sharp_limit = 1.0
 
 [node name="RiceCooker" parent="." instance=ExtResource( 7 )]
 position = Vector2( 1824, 920 )
+
+[node name="EnemyDeathSound" type="AudioStreamPlayer" parent="."]
+autoplay = true
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="start_wave" from="." to="HUD" method="_on_Level1_start_wave"]
 [connection signal="wave_finished" from="." to="HUD" method="_on_Level1_wave_finished"]

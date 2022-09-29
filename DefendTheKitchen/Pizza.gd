@@ -3,6 +3,7 @@ extends "res://Food.gd"
 var health = 8;
 var maxLure = 4;
 var luredMobs = [];
+var soundPlayed = false
 
 func _process(delta):
 	rotation += rotationSpeed * delta;
@@ -15,6 +16,12 @@ func _physics_process(_delta):
 		speed = 0;
 		
 func HitEnemy(enemy):
+	if !soundPlayed:
+		$PizzaSound.play()
+		soundPlayed = true
+	else:
+		$PizzaSound.stop()
+		
 	enemy.takeDamage(1.0);
 	health -= 1;
 	$AnimatedSprite.frame = (8 - health);
@@ -42,6 +49,7 @@ func _on_MobLureTimer_timeout():
 	for mob in luredMobs:
 		if mob != null and is_instance_valid(mob):
 			HitEnemy(mob);
+			soundPlayed = true
 			timerFlag = true;
 	
 	if timerFlag:

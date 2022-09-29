@@ -100,6 +100,7 @@ func takeDamage(damage):
 #This function kills the enemy
 func die():
 	if not isDead:
+		$DeathSound.play()
 		isDead = true;
 		emit_signal("died",self);
 		get_parent().call_deferred("remove_child",self);

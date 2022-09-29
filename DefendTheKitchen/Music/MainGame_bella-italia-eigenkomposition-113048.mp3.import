@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/MainGame_bella-italia-eigenkomposition-113048.mp3-da2ab0a0c7760cb2c3c16057fda16cd0.mp3str"
+
+[deps]
+
+source_file="res://Music/MainGame_bella-italia-eigenkomposition-113048.mp3"
+dest_files=[ "res://.import/MainGame_bella-italia-eigenkomposition-113048.mp3-da2ab0a0c7760cb2c3c16057fda16cd0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
