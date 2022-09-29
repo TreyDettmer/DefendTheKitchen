@@ -23,6 +23,7 @@ func _input(event: InputEvent):
 		return;
 	#start cooking food
 	if event.is_action_pressed("interact") and is_player_inside and not is_cooking:
+		$InteractSound.play()
 		$StoveTimer.start()
 		is_cooking = true
 		done_cooking = false
@@ -42,6 +43,7 @@ func _process(delta):
 			$ProgressBar.value = int(percent);
 
 func _on_StoveTimer_timeout():
+	$Bell.play()
 	done_cooking = true
 	$ProgressBar.visible = false;
 	$FoodSprite.visible = true;

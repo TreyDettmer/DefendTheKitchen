@@ -72,3 +72,4 @@ stream = ExtResource( 3 )
 [connection signal="timeout" from="AttackWindupTimer" to="." method="_on_AttackWindupTimer_timeout"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_AttackCooldownTimer_timeout"]
 [connection signal="timeout" from="StatusEffectTimer" to="." method="_on_StatusEffectTimer_timeout"]
+[connection signal="finished" from="DeathSound" to="." method="_on_DeathSound_finished"]

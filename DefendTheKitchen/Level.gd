@@ -27,7 +27,8 @@ var possibleSpawnPoints = [];
 var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,3,2)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
-export var waveGold = 100;
+export var waveGold = 20;
+var enemySoundPlayed = false
 
 var isBetweenWaves = false;
 
@@ -115,7 +116,11 @@ func spawn_wave():
 		yield(get_tree().create_timer(0.5),"timeout");
 
 func enemy_died(_enemy):
-	$EnemyDeathSound.play()
+	#if !enemySoundPlayed:
+	#	$EnemyDeathSound.play()
+	#else:
+	#	$EnemyDeathSound.stop()
+	
 	if !_enemy.isInsideKitchen:
 		spawnLoot(_enemy)
 	aliveEnemies -= 1;
@@ -162,3 +167,8 @@ func spawnLoot(_enemy):
 	var loot = moneyBagLoot.instance()
 	loot.setPosition(_enemy.position)
 	call_deferred("add_child",loot) #create a loot child on the node
+
+
+func _on_EnemyDeathSound_finished():
+	$EnemyDeathSound.stop()
+	enemySoundPlayed = true

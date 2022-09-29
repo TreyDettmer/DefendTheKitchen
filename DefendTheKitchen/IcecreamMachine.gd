@@ -24,6 +24,7 @@ func _input(event: InputEvent):
 		return;
 	#start cooking food
 	if event.is_action_pressed("interact") and is_player_inside and not is_cooking:
+		$InteractSound.play()
 		$IcecreamTimer.start()
 		is_cooking = true
 		done_cooking = false
@@ -59,6 +60,7 @@ func _on_Area2D_body_exited(_body):
 
 
 func _on_IcecreamTimer_timeout():
+	$Bell.play()
 	done_cooking = true
 	$ProgressBar.visible = false;
 	$FoodSprite.visible = true;

@@ -44,4 +44,5 @@ shape = SubResource( 4 )
 
 [node name="IcecreamSplat" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 4 )
+volume_db = 3.0
 autoplay = true

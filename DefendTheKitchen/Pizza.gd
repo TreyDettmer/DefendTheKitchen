@@ -17,10 +17,8 @@ func _physics_process(_delta):
 		
 func HitEnemy(enemy):
 	if !soundPlayed:
-		$PizzaSound.play()
+		$PizzaSound.play(0.30)
 		soundPlayed = true
-	else:
-		$PizzaSound.stop()
 		
 	enemy.takeDamage(1.0);
 	health -= 1;
@@ -49,7 +47,6 @@ func _on_MobLureTimer_timeout():
 	for mob in luredMobs:
 		if mob != null and is_instance_valid(mob):
 			HitEnemy(mob);
-			soundPlayed = true
 			timerFlag = true;
 	
 	if timerFlag:

@@ -3,6 +3,7 @@ signal collectLoot(lootType, lootValue)
 
 var randRng = RandomNumberGenerator.new()
 export var lootValue = 0
+var collected = false
 export var lootType = { 
 		"gold" : false,
 		"speed" : false,
@@ -28,18 +29,23 @@ func setLootType(type):
 			lootType["item"] = true
 
 func HitPlayer(player):
-	if lootType["gold"]:
-		player.setGold(player.getGold() + lootValue)
-		
-	destroy();
+	if !collected:
+		if lootType["gold"]:
+			player.setGold(player.getGold() + lootValue)
+			collected = true
+			hide()
+			$LootSound.play()
 
 func _init():
 	generateLoot()
 	
 func generateLoot():
-	randRng.randomize()
-	lootValue = randRng.randi_range(10, 100)
+	lootValue = 5
 	setLootType("gold") #for now only creates gold loot
 	
 func setPosition(mapPosition):
 	position = mapPosition
+
+
+func _on_LootSound_finished():
+	destroy()

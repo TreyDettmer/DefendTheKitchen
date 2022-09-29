@@ -96,7 +96,10 @@ func GetInput():
 		# shooting food when interacting with gui elements.
 		if mouseClickEnabled:
 			ThrowFood();
+			#Food throwing sound
 		else:
+			#Interaction sound
+			$InteractSound.play()
 			mouseClickEnabled = true;
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused;
@@ -202,6 +205,7 @@ func _on_IcecreamMachine_icecream_added():
 func _on_ApplianceDetectionArea_area_entered(area):
 	if area.get_parent().is_in_group("loot") and area.name == "LootArea2D":
 		area.get_parent().HitPlayer(self);
+		#Play collect loot sound
 
 
 func _on_RiceCooker_rice_added():

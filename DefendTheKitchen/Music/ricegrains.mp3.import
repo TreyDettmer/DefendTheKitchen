@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ricegrains.mp3-02dea0067016b0aca7eee90197002e40.mp3str"
+
+[deps]
+
+source_file="res://Music/ricegrains.mp3"
+dest_files=[ "res://.import/ricegrains.mp3-02dea0067016b0aca7eee90197002e40.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

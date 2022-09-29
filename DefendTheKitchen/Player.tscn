@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Art/chef2.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Art/chef3.png" type="Texture" id=4]
 [ext_resource path="res://Art/chef4.png" type="Texture" id=5]
 [ext_resource path="res://Art/chef.png" type="Texture" id=6]
+[ext_resource path="res://Music/InteractSound.mp3" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 11.5 )
@@ -46,6 +47,9 @@ animation = "walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ApplianceDetectionArea"]
 shape = SubResource( 3 )
+
+[node name="InteractSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
 
 [connection signal="area_entered" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_area_entered"]
 [connection signal="body_entered" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_body_entered"]

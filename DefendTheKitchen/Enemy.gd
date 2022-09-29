@@ -17,6 +17,7 @@ var canMove = true;
 export var canMoveOnAttack = true;
 var isAttacking = false;
 var canAttack = true;
+var elimSoundPlayed = false
 export (float) var attackCooldown;
 export (float) var attackWindup;
 export (float) var attackDistance;
@@ -101,10 +102,8 @@ func takeDamage(damage):
 func die():
 	if not isDead:
 		$DeathSound.play()
+		hide()
 		isDead = true;
-		emit_signal("died",self);
-		get_parent().call_deferred("remove_child",self);
-		queue_free();
 
 func disable():
 	isDead = true;
@@ -172,3 +171,9 @@ func _on_Area2D_area_exited(area):
 	if (area.name == "KitchenArea2D"):
 		isInsideKitchen = false;
 
+
+#deletes the enemy object once the sound finishes
+func _on_DeathSound_finished():
+	emit_signal("died",self);
+	get_parent().call_deferred("remove_child",self);
+	queue_free();
