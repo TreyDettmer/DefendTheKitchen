@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Art/GameTitle.png" type="Texture" id=1]
 [ext_resource path="res://Art/KitchenArtTitleScreen.png" type="Texture" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Art/GameOver.png" type="Texture" id=5]
 [ext_resource path="res://Art/GameOverWin.png" type="Texture" id=6]
 [ext_resource path="res://Fonts/Montreal-Bold.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Music/LOADINGSCREEN_rio-fresh-119046.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Music/MenuSelect.mp3" type="AudioStream" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -86,6 +88,15 @@ margin_bottom = 119.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "Score: "
+
+[node name="TitleScreenMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -2.0
+autoplay = true
+
+[node name="InteractSoundShort" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = 5.0
 
 [connection signal="nux_mode" from="." to="." method="set_nuxMode"]
 [connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

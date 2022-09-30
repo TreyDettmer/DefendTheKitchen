@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/InteractSoundShort.mp3-8d1cc7cc8136774170246309b204efb7.mp3str"
+
+[deps]
+
+source_file="res://Music/InteractSoundShort.mp3"
+dest_files=[ "res://.import/InteractSoundShort.mp3-8d1cc7cc8136774170246309b204efb7.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -55,7 +55,8 @@ func die():
 		#Change to game over scene
 		global.setScore()
 		global.gameOver = true
-		get_tree().change_scene("res://Main.tscn")
+		self.get_parent().get_node("LevelMusic").stop()
+		$GameOverSound.play()
 		#queue_free();
 
 func _ready():
@@ -97,6 +98,8 @@ func GetInput():
 		if mouseClickEnabled:
 			ThrowFood();
 		else:
+			#Interaction sound
+			$InteractSound.play()
 			mouseClickEnabled = true;
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused;
@@ -131,6 +134,9 @@ func _physics_process(_delta):
 func ThrowFood():
 	if !canThrowFood:
 		return;
+	
+	#Food throwing sound
+	$ThrowingSound.play()
 	
 	#match statement with what is equipted currently to switch between things
 	match currentEquip:
@@ -202,6 +208,7 @@ func _on_IcecreamMachine_icecream_added():
 func _on_ApplianceDetectionArea_area_entered(area):
 	if area.get_parent().is_in_group("loot") and area.name == "LootArea2D":
 		area.get_parent().HitPlayer(self);
+		#Play collect loot sound
 
 
 func _on_RiceCooker_rice_added():
@@ -240,3 +247,8 @@ func _on_ApplianceDetectionArea_body_exited(body):
 	
 	if loadedUpgradeButtons.has(body):
 		loadedUpgradeButtons[body].queue_free();
+
+
+func _on_GameOverSound_finished():
+	#change scene after the game over sound has been played
+	get_tree().change_scene("res://Main.tscn")

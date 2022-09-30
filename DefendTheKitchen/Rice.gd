@@ -11,11 +11,17 @@ func _physics_process(_delta):
 		if body.is_in_group("enemies"):
 			if previouslyHitEnemy == null:
 				HitEnemy(body);
-		destroy();
+		else:
+			destroy()
 		break;
 
 func HitEnemy(enemy):
+	$RiceSound.play(0.24)
 	if previouslyHitEnemy == null:
 		enemy.takeDamage(1.0);
 		previouslyHitEnemy = enemy;
-	destroy();
+		hide()
+
+
+func _on_RiceSound_finished():
+	destroy()

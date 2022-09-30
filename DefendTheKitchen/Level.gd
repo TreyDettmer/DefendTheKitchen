@@ -30,7 +30,8 @@ export var canThrowFoodOutsideKitchen = false;
 var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,2,2),Wave.new(4,4,2,1)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
-export var waveGold = 100;
+export var waveGold = 20;
+var enemySoundPlayed = false
 
 var isBetweenWaves = false;
 
@@ -197,3 +198,8 @@ func spawnLoot(_enemy):
 	var loot = moneyBagLoot.instance()
 	loot.setPosition(_enemy.position)
 	call_deferred("add_child",loot) #create a loot child on the node
+
+
+func _on_EnemyDeathSound_finished():
+	$EnemyDeathSound.stop()
+	enemySoundPlayed = true
