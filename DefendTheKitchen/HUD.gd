@@ -21,3 +21,14 @@ func _on_Level1_wave_finished():
 #run commands for a new wave coming in
 func _on_Level1_start_wave(currentWave):
 	setWaveNumber(currentWave)
+
+func _on_ControlsButton_pressed():
+	$ControlsScreen.show()
+	$Inventory.hide()
+	#get_tree().paused = true
+
+func _on_ControlsScreen_CloseControls():
+	$ControlsScreen.hide()
+	$Inventory.show()
+	#get_tree().paused = false
+	

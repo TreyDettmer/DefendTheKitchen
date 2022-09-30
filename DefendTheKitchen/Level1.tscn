@@ -58,6 +58,9 @@ rotation = 1.5708
 position = Vector2( 1816, 120 )
 collision_layer = 1
 
+[node name="RiceCooker" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1824, 920 )
+
 [node name="EnemySpawnPoints" type="Node2D" parent="."]
 
 [node name="EnemySpawnPoint" type="Node2D" parent="EnemySpawnPoints"]
@@ -114,8 +117,6 @@ position = Vector2( 96, 1112 )
 [node name="EnemySpawnPoint18" type="Node2D" parent="EnemySpawnPoints"]
 position = Vector2( 144, -120 )
 
-[node name="HUD" parent="." instance=ExtResource( 6 )]
-
 [node name="KitchenArea2D" type="Area2D" parent="."]
 position = Vector2( 1624, 600 )
 
@@ -128,8 +129,7 @@ points = PoolVector2Array( -232, -616, -232, 504 )
 default_color = Color( 0.635294, 0.117647, 0.117647, 0.317647 )
 sharp_limit = 1.0
 
-[node name="RiceCooker" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1824, 920 )
+[node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="EnemyDeathSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
@@ -144,8 +144,8 @@ autoplay = true
 [connection signal="wave_finished" from="." to="HUD" method="_on_Level1_wave_finished"]
 [connection signal="pizza_added" from="Stove" to="Player" method="_on_Stove_pizza_added"]
 [connection signal="icecream_added" from="IcecreamMachine" to="Player" method="_on_IcecreamMachine_icecream_added"]
-[connection signal="nextWave" from="HUD" to="." method="_on_HUD_nextWave"]
+[connection signal="rice_added" from="RiceCooker" to="Player" method="_on_RiceCooker_rice_added"]
 [connection signal="body_entered" from="KitchenArea2D" to="." method="_on_KitchenArea2D_body_entered"]
 [connection signal="body_exited" from="KitchenArea2D" to="." method="_on_KitchenArea2D_body_exited"]
-[connection signal="rice_added" from="RiceCooker" to="Player" method="_on_RiceCooker_rice_added"]
+[connection signal="nextWave" from="HUD" to="." method="_on_HUD_nextWave"]
 [connection signal="finished" from="EnemyDeathSound" to="." method="_on_EnemyDeathSound_finished"]
