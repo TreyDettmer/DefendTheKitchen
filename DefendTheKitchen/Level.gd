@@ -9,12 +9,14 @@ class Wave:
 	var normalEnemyCount: int;
 	var fastEnemyCount: int;
 	var bigEnemyCount: int;
+	var bossEnemyCount: int;
 	
 	
-	func _init(_normalEnemyCount:int = 1, _fastEnemyCount:int = 0, _bigEnemyCount:int = 0):
+	func _init(_normalEnemyCount:int = 1, _fastEnemyCount:int = 0, _bigEnemyCount:int = 0, _bossEnemyCount:int = 0):
 		normalEnemyCount = _normalEnemyCount;
 		fastEnemyCount = _fastEnemyCount;
 		bigEnemyCount = _bigEnemyCount;
+		bossEnemyCount = _bossEnemyCount;
 
 var currentWave = 1;
 
@@ -22,9 +24,10 @@ var moneyBagLoot = preload("res://Loot.tscn");
 var normalEnemyPrefab = preload("res://Enemy_Normal.tscn");
 var fastEnemyPrefab = preload("res://Enemy_Fast.tscn");
 var bigEnemyPrefab = preload("res://Enemy_Big.tscn");
+var bossEnemyPrefab = preload("res://Enemy_Boss.tscn");
 var possibleSpawnPoints = [];
-
-var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,3,2)]
+export var canThrowFoodOutsideKitchen = false;
+var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,2,2),Wave.new(4,4,2,1)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
 export var waveGold = 20;
@@ -114,6 +117,22 @@ func spawn_wave():
 		
 		# slight delay between enemy spawns
 		yield(get_tree().create_timer(0.5),"timeout");
+		
+	# spawn the boss enemies
+	for _n in range(wave.bossEnemyCount):
+		print("Spawning boss enemy");
+		var enemy = bossEnemyPrefab.instance();
+		
+		enemy.position = possibleSpawnPoints[spawnPointIndex % possibleSpawnPoints.size()].position;
+		
+		# connect enemy death signal so we can update enemy count
+		enemy.connect("died",self,"enemy_died");
+		$Navigation2D_Wide.call_deferred("add_child",enemy);
+		aliveEnemies += 1;
+		spawnPointIndex += 1;
+		
+		# slight delay between enemy spawns
+		yield(get_tree().create_timer(0.5),"timeout");
 
 func enemy_died(_enemy):
 	if !_enemy.isInsideKitchen:
@@ -122,6 +141,23 @@ func enemy_died(_enemy):
 	print("Enemy Died!!!");
 	if aliveEnemies <= 0:
 		complete_wave();
+		
+func distributeBossMinions(_boss):
+	if !is_instance_valid(_boss):
+		return;
+	for i in _boss.numberOfMinions:
+		var enemy = fastEnemyPrefab.instance();
+		if !is_instance_valid(_boss):
+			return;
+		enemy.position = _boss.position;
+		
+		# connect enemy death signal so we can update enemy count
+		enemy.connect("died",self,"enemy_died");
+		$Navigation2D_Normal.call_deferred("add_child",enemy);
+		aliveEnemies += 1;
+		
+		# slight delay between enemy spawns
+		yield(get_tree().create_timer(0.5),"timeout");
 		
 func complete_wave():
 	print("Completed wave");
@@ -150,12 +186,12 @@ func _on_HUD_nextWave():
 
 
 func _on_KitchenArea2D_body_entered(body):
-	if body.name == "Player":
+	if body.name == "Player" and !canThrowFoodOutsideKitchen:
 		$Player.canThrowFood = true;
 
 
 func _on_KitchenArea2D_body_exited(body):
-	if body.name == "Player":
+	if body.name == "Player" and !canThrowFoodOutsideKitchen:
 		$Player.canThrowFood = false;
 		
 func spawnLoot(_enemy):
