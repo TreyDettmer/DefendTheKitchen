@@ -55,7 +55,8 @@ func die():
 		#Change to game over scene
 		global.setScore()
 		global.gameOver = true
-		get_tree().change_scene("res://Main.tscn")
+		self.get_parent().get_node("LevelMusic").stop()
+		$GameOverSound.play()
 		#queue_free();
 
 func _ready():
@@ -96,7 +97,6 @@ func GetInput():
 		# shooting food when interacting with gui elements.
 		if mouseClickEnabled:
 			ThrowFood();
-			#Food throwing sound
 		else:
 			#Interaction sound
 			$InteractSound.play()
@@ -134,6 +134,9 @@ func _physics_process(_delta):
 func ThrowFood():
 	if !canThrowFood:
 		return;
+	
+	#Food throwing sound
+	$ThrowingSound.play()
 	
 	#match statement with what is equipted currently to switch between things
 	match currentEquip:
@@ -244,3 +247,8 @@ func _on_ApplianceDetectionArea_body_exited(body):
 	
 	if loadedUpgradeButtons.has(body):
 		loadedUpgradeButtons[body].queue_free();
+
+
+func _on_GameOverSound_finished():
+	#change scene after the game over sound has been played
+	get_tree().change_scene("res://Main.tscn")

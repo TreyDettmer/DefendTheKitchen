@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Art/chef2.png" type="Texture" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Art/chef4.png" type="Texture" id=5]
 [ext_resource path="res://Art/chef.png" type="Texture" id=6]
 [ext_resource path="res://Music/InteractSound.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Music/GameOver.wav" type="AudioStream" id=8]
+[ext_resource path="res://Music/Whoosh.mp3" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 11.5 )
@@ -50,7 +52,17 @@ shape = SubResource( 3 )
 
 [node name="InteractSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = 1.75
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = 1.5
+
+[node name="ThrowingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = 1.0
 
 [connection signal="area_entered" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_area_entered"]
 [connection signal="body_entered" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_body_entered"]
 [connection signal="body_exited" from="ApplianceDetectionArea" to="." method="_on_ApplianceDetectionArea_body_exited"]
+[connection signal="finished" from="GameOverSound" to="." method="_on_GameOverSound_finished"]

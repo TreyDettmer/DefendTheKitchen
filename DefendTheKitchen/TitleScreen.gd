@@ -31,13 +31,15 @@ func _ready():
 		$Score.hide()
 
 func _on_StartButton_pressed():
-	yield(get_tree().create_timer(1), "timeout")
+	$InteractSoundShort.play()
+	yield(get_tree().create_timer(0.5), "timeout")
 	#$TitleScreenMusic.stop()
 	global.resetVars()
 	emit_signal("level_changed", level_num)
 
 #function to tell the main game if nux mode should be on or off
 func _on_ToggleNuxMode_toggled(button_pressed):
+	$InteractSoundShort.play()
 	emit_signal("nux_mode", button_pressed)
 
 func set_nuxMode(nux: bool):
@@ -45,4 +47,6 @@ func set_nuxMode(nux: bool):
 	global.nuxMode = nux
 
 func _on_QuitButton_pressed():
+	$InteractSoundShort.play()
+	yield(get_tree().create_timer(0.5), "timeout")
 	get_tree().quit()
