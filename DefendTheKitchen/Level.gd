@@ -30,7 +30,7 @@ export var canThrowFoodOutsideKitchen = false;
 var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,2,2),Wave.new(4,4,2,1)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
-export var waveGold = 20;
+var waveGold = 20
 var enemySoundPlayed = false
 
 var isBetweenWaves = false;

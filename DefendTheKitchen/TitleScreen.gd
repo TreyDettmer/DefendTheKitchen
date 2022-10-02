@@ -50,3 +50,12 @@ func _on_QuitButton_pressed():
 	$InteractSoundShort.play()
 	yield(get_tree().create_timer(0.5), "timeout")
 	get_tree().quit()
+
+
+func _on_ControlsButton_pressed():
+	emit_signal("showControls",true) #tell parent to pause game
+	$ControlsScreen.show()
+
+func _on_ControlsScreen_CloseControls():
+	$ControlsScreen.hide()
+	emit_signal("showControls", false) #tell parent to play the game
