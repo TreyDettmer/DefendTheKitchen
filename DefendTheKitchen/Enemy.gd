@@ -48,6 +48,7 @@ func _ready():
 	navigationAgent.set_target_location(player.global_position);
 	navigationAgent.max_speed = maxSpeed;
 	$AnimatedSprite.modulate = currentColor;
+	$AnimatedSprite.play("walk");
 	$HealthLabel.text = String(healthPoints);
 
 func _process(delta):
@@ -84,6 +85,7 @@ func CalculateMovement(_delta):
 		else:
 			navigationAgent.set_target_location(player.global_position);
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
+		$AnimatedSprite.rotation = (moveDirection.angle() + 90);
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
 

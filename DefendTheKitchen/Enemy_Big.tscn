@@ -17,10 +17,6 @@ attackCooldown = 0.6
 attackWindup = 0.4
 attackDistance = 60.0
 healthPoints = 5
-currentColor = Color( 0, 1, 0.156863, 1 )
-
-[node name="AnimatedSprite" parent="." index="0"]
-scale = Vector2( 1.1, 1.1 )
 
 [node name="NavigationCollider" parent="." index="1"]
 shape = SubResource( 1 )
