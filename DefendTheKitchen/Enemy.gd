@@ -48,6 +48,7 @@ func _ready():
 	navigationAgent.set_target_location(player.global_position);
 	navigationAgent.max_speed = maxSpeed;
 	$AnimatedSprite.modulate = currentColor;
+	$AnimatedSprite.play("walk");
 	$HealthLabel.text = String(healthPoints);
 
 func _process(delta):
@@ -84,6 +85,7 @@ func CalculateMovement(_delta):
 		else:
 			navigationAgent.set_target_location(player.global_position);
 		var moveDirection = position.direction_to(navigationAgent.get_next_location());
+		$AnimatedSprite.rotation = (moveDirection.angle() + 90);
 		velocity = moveDirection * maxSpeed;
 		navigationAgent.set_velocity(velocity);
 
@@ -153,15 +155,8 @@ func _on_Area2D_area_entered(area):
 func activateStatusEffect(effect):
 	match effect:
 		"frost": #reduce the speed from frost
-			
-			# check if we have already been frosted
-			if $StatusEffectTimer.time_left > 0:
-				maxSpeed -= statusEffect.frost;
-				maxSpeed = max(0.0,maxSpeed);
-				return;
 			origSpeed = maxSpeed #assign temp variable for holding old speed
 			maxSpeed -= statusEffect.frost
-			maxSpeed = max(0.0,maxSpeed);
 			$StatusEffectTimer.start()
 
 func _on_StatusEffectTimer_timeout():
