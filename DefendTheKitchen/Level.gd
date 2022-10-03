@@ -27,10 +27,10 @@ var bigEnemyPrefab = preload("res://Enemy_Big.tscn");
 var bossEnemyPrefab = preload("res://Enemy_Boss.tscn");
 var possibleSpawnPoints = [];
 export var canThrowFoodOutsideKitchen = false;
-var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,2,2),Wave.new(4,4,2,1)]
+var waves = [Wave.new(3,0,0), Wave.new(3,2,0),Wave.new(5,3,1), Wave.new(5,2,2), Wave.new(6,3,2),Wave.new(7,4,2),Wave.new(5,4,2,1)]
 var rng = RandomNumberGenerator.new()
 var aliveEnemies = 0;
-var waveGold = 20
+var waveGold = 15
 var enemySoundPlayed = false
 
 var isBetweenWaves = false;
@@ -164,9 +164,7 @@ func complete_wave():
 	isBetweenWaves = true;
 	$Player.setGold($Player.getGold() + waveGold) #Adding reward gold to players inventory
 	print("Added " + str(waveGold) + " Gold")
-	
-	# remove all food that is on the floor
-	get_tree().call_group("food","queue_free");
+	$Player.canThrowFood = false;
 	
 	if currentWave >= waves.size():
 		print("You won!");
@@ -183,6 +181,7 @@ func _on_HUD_nextWave():
 	emit_signal("start_wave", currentWave)
 	isBetweenWaves = false;
 	spawn_wave();
+	$Player.canThrowFood = true;
 
 
 func _on_KitchenArea2D_body_entered(body):

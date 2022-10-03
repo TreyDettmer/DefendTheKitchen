@@ -71,5 +71,4 @@ func _upgrade():
 	self.upgradeCost += 10;
 	emit_signal("update_upgrade", upgradeCost);
 	
-	# TODO This is just an upgrade example
-	$RiceCookerTimer.wait_time -= 1;
+	$RiceCookerTimer.wait_time *= 0.75;

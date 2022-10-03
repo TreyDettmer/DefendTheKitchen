@@ -72,4 +72,4 @@ func _upgrade():
 	self.upgradeCost += 10;
 	emit_signal("update_upgrade", upgradeCost);
 	
-	$IcecreamTimer.wait_time = 1;
+	$IcecreamTimer.wait_time *= 0.75;

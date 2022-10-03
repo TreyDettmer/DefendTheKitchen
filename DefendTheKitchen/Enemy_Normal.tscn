@@ -8,9 +8,10 @@ radius = 19.0263
 
 [node name="Enemy_Normal" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+maxSpeed = 100.0
 canMoveOnAttack = true
 attackCooldown = 0.6
-attackWindup = 0.4
+attackWindup = 0.2
 attackDistance = 50.0
 healthPoints = 3
 

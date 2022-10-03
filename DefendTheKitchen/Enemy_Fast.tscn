@@ -8,10 +8,10 @@ radius = 16.0
 
 [node name="Enemy_Fast" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-maxSpeed = 120.0
+maxSpeed = 140.0
 canMoveOnAttack = true
 attackCooldown = 0.6
-attackWindup = 0.4
+attackWindup = 0.2
 attackDistance = 50.0
 currentColor = Color( 0.85098, 0, 1, 1 )
 

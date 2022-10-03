@@ -25,6 +25,7 @@ animations = [ {
 [node name="IcecreamMachine" type="StaticBody2D"]
 collision_layer = 0
 script = ExtResource( 2 )
+upgradeCost = 20
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -43,7 +44,7 @@ frames = SubResource( 1 )
 flip_v = true
 
 [node name="IcecreamTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 3.0
 one_shot = true
 
 [node name="ProgressBar" type="TextureProgress" parent="."]
