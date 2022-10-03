@@ -1,15 +1,24 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Art/icon.png" type="Texture" id=1]
+[ext_resource path="res://Art/enemy3.png" type="Texture" id=1]
 [ext_resource path="res://Enemy.gd" type="Script" id=2]
 [ext_resource path="res://Music/Wilhelm_Scream.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Art/enemy1.png" type="Texture" id=4]
+[ext_resource path="res://Art/enemy2.png" type="Texture" id=5]
+[ext_resource path="res://Art/enemy4.png" type="Texture" id=6]
+[ext_resource path="res://Art/enemy5.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "default",
+"name": "idle",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "walk",
+"speed": 7.5
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
@@ -27,8 +36,9 @@ attackWindup = 0.5
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = 1.5708
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 1.1, 1.1 )
 frames = SubResource( 4 )
+animation = "idle"
 
 [node name="NavigationCollider" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
@@ -49,7 +59,7 @@ one_shot = true
 [node name="AttackCooldownTimer" type="Timer" parent="."]
 
 [node name="StatusEffectTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 one_shot = true
 
 [node name="HealthLabel" type="Label" parent="."]
