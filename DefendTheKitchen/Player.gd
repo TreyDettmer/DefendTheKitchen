@@ -135,8 +135,7 @@ func ThrowFood():
 	if !canThrowFood:
 		return;
 	
-	#Food throwing sound
-	$ThrowingSound.play()
+
 	
 	#match statement with what is equipted currently to switch between things
 	match currentEquip:
@@ -148,7 +147,8 @@ func ThrowFood():
 				# spawn food in front of player
 				b.global_position = global_position + aimDirection * 30.0;
 				food_count["pizza"] -= 1
-				
+				#Food throwing sound
+				$ThrowingSound.play()
 				emit_signal("update_inventory", food_count,currentEquip)
 		2:
 			if food_count["icecream"] > 0:
@@ -158,7 +158,8 @@ func ThrowFood():
 				# spawn food in front of player
 				b.global_position = global_position + aimDirection * 30.0;
 				food_count["icecream"] -= 1
-				
+				#Food throwing sound
+				$ThrowingSound.play()				
 				emit_signal("update_inventory", food_count,currentEquip)
 		3:
 			if food_count["rice"] > 0:
@@ -168,7 +169,8 @@ func ThrowFood():
 				# spawn food in front of player
 				b.global_position = global_position + aimDirection * 30.0;
 				food_count["rice"] -= 1
-				
+				#Food throwing sound
+				$ThrowingSound.play()				
 				emit_signal("update_inventory", food_count,currentEquip)
 
 
@@ -201,7 +203,7 @@ func _on_Stove_pizza_added():
 	update_food("pizza")
 
 func _on_IcecreamMachine_icecream_added():
-	update_food("icecream")
+	update_food("icecream",3);
 	
 
 #controls interactions between the player and loot
@@ -212,7 +214,7 @@ func _on_ApplianceDetectionArea_area_entered(area):
 
 
 func _on_RiceCooker_rice_added():
-	update_food("rice",5);
+	update_food("rice",6);
 
 
 func _on_ApplianceDetectionArea_body_entered(body):

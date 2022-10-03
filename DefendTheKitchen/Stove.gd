@@ -70,5 +70,4 @@ func _upgrade():
 	self.upgradeCost += 10;
 	emit_signal("update_upgrade", upgradeCost);
 	
-	# TODO This is just an upgrade example
-	$StoveTimer.wait_time = 1;
+	$StoveTimer.wait_time *= 0.75;

@@ -26,7 +26,6 @@ func _on_Button_pressed():
 	player.mouseClickEnabled = false;
 	
 	if (player.gold >= appliance.upgradeCost):
-		
-		emit_signal("playerPressedUpgrade");
 		player.setGold(player.gold - appliance.upgradeCost);
+		emit_signal("playerPressedUpgrade");
 		updateButtonText(appliance.upgradeCost);

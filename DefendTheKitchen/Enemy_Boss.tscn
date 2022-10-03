@@ -20,10 +20,10 @@ radius = 53.0094
 
 [node name="Enemy_Boss" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-maxSpeed = 130.0
+maxSpeed = 140.0
 canMoveOnAttack = true
 attackCooldown = 0.6
-attackWindup = 0.4
+attackWindup = 0.2
 attackDistance = 60.0
 healthPoints = 5
 numberOfMinions = 4

@@ -25,6 +25,7 @@ animations = [ {
 [node name="Stove" type="StaticBody2D"]
 collision_layer = 0
 script = ExtResource( 2 )
+upgradeCost = 15
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -44,7 +45,7 @@ frames = SubResource( 1 )
 flip_v = true
 
 [node name="StoveTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 20.0
 one_shot = true
 
 [node name="ProgressBar" type="TextureProgress" parent="."]
