@@ -1,0 +1,56 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Enemy_Boss.gd" type="Script" id=2]
+[ext_resource path="res://Art/boss.png" type="Texture" id=3]
+[ext_resource path="res://Art/boss2.png" type="Texture" id=4]
+[ext_resource path="res://Art/boss3.png" type="Texture" id=5]
+[ext_resource path="res://Art/boss4.png" type="Texture" id=6]
+[ext_resource path="res://Art/boss5.png" type="Texture" id=7]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "walk",
+"speed": 7.5
+} ]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 53.0094
+
+[node name="Enemy_Boss" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+maxSpeed = 130.0
+canMoveOnAttack = true
+attackCooldown = 0.6
+attackWindup = 0.4
+attackDistance = 60.0
+healthPoints = 5
+numberOfMinions = 4
+
+[node name="AnimatedSprite" parent="." index="0"]
+rotation = 0.0
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 3 )
+
+[node name="NavigationCollider" parent="." index="1"]
+shape = SubResource( 1 )
+
+[node name="NavigationAgent2D" parent="." index="2"]
+navigation_layers = 4
+
+[node name="WorldColliderArea" parent="Area2D" index="0"]
+shape = SubResource( 2 )
+
+[node name="HealthLabel" parent="." index="7"]
+margin_top = -68.0
+margin_bottom = -54.0
